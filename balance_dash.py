@@ -201,6 +201,11 @@ off_stock_percentage = (len(off_stock) / total_products) * 100 if total_products
 atp_percentage = (len(atp_products) / total_products) * 100 if total_products > 0 else 0
 over_stock_percentage = (len(over_stock) / total_products) * 100 if total_products > 0 else 0
 
+# Apply CSS styling
+with open('style (1).css') as f:
+    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
+
 # Define CSS for styling metrics
 metric_style = """
     <style>
@@ -221,9 +226,7 @@ metric_style = """
     </style>
 """
 
-# Apply CSS styling
-with open('style (1).css') as f:
-    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
 
 
 # Display metrics with styling
