@@ -286,3 +286,8 @@ st.markdown(f"""
         </div>
     </div>
 """, unsafe_allow_html=True)
+
+# Display tables
+st.plotly_chart(offstock_table(filtered_df))
+st.plotly_chart(overstock_table(filtered_df))
+st.plotly_chart(atp_table(filtered_df))
