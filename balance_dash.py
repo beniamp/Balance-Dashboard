@@ -225,7 +225,7 @@ metric_style = """
         border: 2px solid #FF0000;
     }
     .metric-box.grey{
-        boarder: 2px solid #808080
+        boarder: 2px solid #1D1D1D
     }
     .metric-title {
         font-size: 18px;
