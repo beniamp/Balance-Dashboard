@@ -201,6 +201,51 @@ off_stock_percentage = (len(off_stock) / total_products) * 100 if total_products
 atp_percentage = (len(atp_products) / total_products) * 100 if total_products > 0 else 0
 over_stock_percentage = (len(over_stock) / total_products) * 100 if total_products > 0 else 0
 
+
+# Define CSS for styling metrics
+metric_style = """
+    <style>
+    .metric-box {
+        border: 2px solid #4CAF50;
+        padding: 10px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        background-color: #f9f9f9;
+    }
+    .metric-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #4CAF50;
+    }
+    .metric-value {
+        font-size: 16px;
+    }
+    </style>
+"""
+
+# Apply CSS styling
+st.markdown(metric_style, unsafe_allow_html=True)
+
+# Display metrics with styling
+st.markdown(f"""
+    <div class="metric-box">
+        <div class="metric-title">Total Off Stock in {selected_category}</div>
+        <div class="metric-value">Count: {len(off_stock)}</div>
+        <div class="metric-value">Percentage: {off_stock_percentage:.2f}%</div>
+    </div>
+    <div class="metric-box">
+        <div class="metric-title">Total ATP (Available to Promise) in {selected_category}</div>
+        <div class="metric-value">Count: {len(atp_products)}</div>
+        <div class="metric-value">Percentage: {atp_percentage:.2f}%</div>
+    </div>
+    <div class="metric-box">
+        <div class="metric-title">Total Over Stock in {selected_category}</div>
+        <div class="metric-value">Count: {len(over_stock)}</div>
+        <div class="metric-value">Percentage: {over_stock_percentage:.2f}%</div>
+    </div>
+""", unsafe_allow_html=True)
+
+
 # Define CSS for styling metrics
 metric_style = """
     <style>
@@ -221,8 +266,6 @@ metric_style = """
     </style>
 """
 
-# Apply CSS styling
-st.markdown(metric_style, unsafe_allow_html=True)
 
 
 
