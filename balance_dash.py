@@ -248,11 +248,11 @@ st.markdown(f"""
     <div class="metrics-container">
         <div class="metric-box grey">
             <div class="metric-title">Total Availability {selected_category}</div>
-            <div class="metric-value">{Total_availability}</div>
+            <div class="metric-value">{total_stock}</div>
         </div>
         <div class="metric-box grey">
             <div class="metric-title">Total Volume {selected_category}</div>
-            <div class="metric-value">{Total_volume}</div>
+            <div class="metric-value">{total_volume}</div>
         </div>
     <div class="metrics-container">
         <div class="metric-box {off_stock_class}">
