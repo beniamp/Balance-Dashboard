@@ -232,10 +232,13 @@ def offstock_table(df):
             values=[df_filtered[col] for col in df_filtered.columns],
             fill_color='floralwhite',
             align='left'
+            height=400
         )
     )])
 
-    fig.update_layout(title='Off The Stock Products')
+    fig.update_layout(
+    title='Off The Stock Products',
+    height=600)
 
     return fig
 
@@ -253,10 +256,13 @@ def overstock_table(df):
             values=[df_filtered[col] for col in df_filtered.columns],
             fill_color='floralwhite',
             align='left'
+            height=400
         )
     )])
 
-    fig.update_layout(title='Over Stock Products')
+    fig.update_layout(
+    title='Over Stock Products',
+    height=600)
 
     return fig
 
@@ -274,11 +280,13 @@ def atp_table(df):
             values=[df_filtered[col] for col in df_filtered.columns],
             fill_color='floralwhite',
             align='left'
+            height=400
         )
     )])
 
-    fig.update_layout(title='High ATP Products')
-
+    fig.update_layout(
+    title='High ATP Products', height=600
+    )
     return fig
 
 # Display tables
