@@ -175,7 +175,7 @@ metric_style = """
         font-size: 16px;
     }
     .table-container {
-        max-height: 400px;
+        max-height: 600px;
         overflow-y: auto;
         margin-top: 20px;
     }
