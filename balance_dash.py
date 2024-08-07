@@ -233,9 +233,9 @@ st.subheader(f'Total Off Stock in {selected_category}')
 st.write(f"Count: {len(off_stock)}")
 st.write(f"Percentage: {off_stock_percentage:.2f}%")
 
-# st.subheader(f'Total ATP (Available to Promise) in {selected_category}')
-# st.write(f"Count: {len(atp_products)}")
-# st.write(f"Percentage: {atp_percentage:.2f}%")
+st.subheader(f'Total ATP (Available to Promise) in {selected_category}')
+st.write(f"Count: {len(atp_products)}")
+st.write(f"Percentage: {atp_percentage:.2f}%")
 
 # st.subheader(f'Total Over Stock in {selected_category}')
 # st.write(f"Count: {len(over_stock)}")
