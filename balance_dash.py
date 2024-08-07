@@ -206,7 +206,7 @@ over_stock_percentage = (len(over_stock) / total_products) * 100 if total_produc
 metric_style = """
     <style>
     .metric-box {
-        border: 2px solid #4CAF50;
+        border: 2px solid #e0461f;
         padding: 10px;
         border-radius: 8px;
         margin-bottom: 20px;
@@ -215,7 +215,7 @@ metric_style = """
     .metric-title {
         font-size: 18px;
         font-weight: bold;
-        color: #4CAF50;
+        color: #261e1d;
     }
     .metric-value {
         font-size: 16px;
