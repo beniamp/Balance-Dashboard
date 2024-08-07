@@ -100,8 +100,8 @@ def unit_stock_distribution(df):
 
 # Scoreboards metrics
 off_stock = df[df['Total_availability'] == 0].reset_index()
-atp_products = df[df['Total_availability'] > df['Total_Volume']].reset_index()
-over_stock = df[df['Total_availability'] < df['Total_Volume']].reset_index()
+atp_products = df[df['Total_availability'] < df['Total_Volume']].reset_index()
+over_stock = df[df['Total_availability'] > df['Total_Volume']].reset_index()
 
 
 
@@ -129,8 +129,8 @@ if selected_brand != 'All Brands':
 
 # Compute metrics for the filtered DataFrame
 off_stock = filtered_df[filtered_df['Total_availability'] == 0]
-atp_products = filtered_df[filtered_df['Total_availability'] > filtered_df['Total_Volume']]
-over_stock = filtered_df[filtered_df['Total_availability'] < filtered_df['Total_Volume']]
+atp_products = filtered_df[filtered_df['Total_availability'] < filtered_df['Total_Volume']]
+over_stock = filtered_df[filtered_df['Total_availability'] > filtered_df['Total_Volume']]
 
 # Compute percentages
 total_products = len(filtered_df)
