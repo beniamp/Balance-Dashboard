@@ -175,10 +175,8 @@ def atp_table(df):
 
 
 
-# Streamlit launch
 # Streamlit app
 st.title('Inventory Metrics Dashboard')
-
 
 # Category filter with 'All Categories' option
 categories = ['All Categories'] + df['Category'].unique().tolist()
@@ -198,10 +196,7 @@ selected_brand = st.selectbox('Select Brand', brands)
 if selected_brand != 'All Brands':
     filtered_df = filtered_df[filtered_df['Brand'] == selected_brand]
 
-
 # Compute metrics for the filtered DataFrame
-total_stock = filtered_df['Total_availability'].sum()
-total_volume = filtered_df['Total_Volume'].sum()
 off_stock = filtered_df[filtered_df['Total_availability'] == 0]
 atp_products = filtered_df[filtered_df['Total_availability'] > filtered_df['Total_Volume']]
 over_stock = filtered_df[filtered_df['Total_availability'] < filtered_df['Total_Volume']]
@@ -211,6 +206,11 @@ total_products = len(filtered_df)
 off_stock_percentage = (len(off_stock) / total_products) * 100 if total_products > 0 else 0
 atp_percentage = (len(atp_products) / total_products) * 100 if total_products > 0 else 0
 over_stock_percentage = (len(over_stock) / total_products) * 100 if total_products > 0 else 0
+
+# Compute total availability and total volume
+total_availability = filtered_df['Total_availability'].sum()
+total_volume = filtered_df['Total_Volume'].sum()
+
 # Define CSS for styling metrics
 metric_style = """
     <style>
@@ -233,8 +233,8 @@ metric_style = """
     .metric-box.red {
         border: 2px solid #FF0000;
     }
-    .metric-box.grey{
-        boarder: 2px solid #1D1D1D
+    .metric-box.grey {
+        border: 2px solid #808080;
     }
     .metric-title {
         font-size: 18px;
@@ -250,32 +250,37 @@ metric_style = """
 st.markdown(metric_style, unsafe_allow_html=True)
 
 # Determine the class based on the off stock percentage
-off_stock_class = "red" if off_stock_percentage > 80 else "green"
+off_stock_class = "red" if off_stock_percentage > 60 else "green"
 
 # Display metrics with styling
 st.markdown(f"""
     <div class="metrics-container">
         <div class="metric-box grey">
-            <div class="metric-title">Total Availability {selected_category}</div>
-            <div class="metric-value">{total_stock}</div>
+            <div class="metric-title">Total Availability in {selected_category} - {selected_brand}</div>
+            <div class="metric-value">{total_availability}</div>
         </div>
         <div class="metric-box grey">
-            <div class="metric-title">Total Volume {selected_category}</div>
+            <div class="metric-title">Total Volume in {selected_category} - {selected_brand}</div>
             <div class="metric-value">{total_volume}</div>
         </div>
+        <div class="metric-box grey">
+            <div class="metric-title">Total Products in {selected_category} - {selected_brand}</div>
+            <div class="metric-value">{total_products}</div>
+        </div>
+    </div>
     <div class="metrics-container">
         <div class="metric-box {off_stock_class}">
-            <div class="metric-title">Total Off Stock in {selected_category}</div>
+            <div class="metric-title">Total Off Stock in {selected_category} - {selected_brand}</div>
             <div class="metric-value">Count: {len(off_stock)}</div>
             <div class="metric-value">Percentage: {off_stock_percentage:.2f}%</div>
         </div>
         <div class="metric-box green">
-            <div class="metric-title">Total ATP (Available to Promise) in {selected_category}</div>
+            <div class="metric-title">Total ATP (Available to Promise) in {selected_category} - {selected_brand}</div>
             <div class="metric-value">Count: {len(atp_products)}</div>
             <div class="metric-value">Percentage: {atp_percentage:.2f}%</div>
         </div>
         <div class="metric-box green">
-            <div class="metric-title">Total Over Stock in {selected_category}</div>
+            <div class="metric-title">Total Over Stock in {selected_category} - {selected_brand}</div>
             <div class="metric-value">Count: {len(over_stock)}</div>
             <div class="metric-value">Percentage: {over_stock_percentage:.2f}%</div>
         </div>
