@@ -236,17 +236,17 @@ st.markdown(metric_style, unsafe_allow_html=True)
 st.markdown(f"""
     <div class="metrics-container">
         <div class="metric-box">
-            <div class="metric-title">Total Off Stock in {selected_category}</div>
+            <div class="metric-title">Total Off Stock {selected_category}</div>
             <div class="metric-value">Count: {len(off_stock)}</div>
             <div class="metric-value">Percentage: {off_stock_percentage:.2f}%</div>
         </div>
         <div class="metric-box">
-            <div class="metric-title">Total ATP (Available to Promise) in {selected_category}</div>
+            <div class="metric-title">Total ATP (Available to Promise) {selected_category}</div>
             <div class="metric-value">Count: {len(atp_products)}</div>
             <div class="metric-value">Percentage: {atp_percentage:.2f}%</div>
         </div>
         <div class="metric-box">
-            <div class="metric-title">Total Over Stock in {selected_category}</div>
+            <div class="metric-title">Total Over Stock {selected_category}</div>
             <div class="metric-value">Count: {len(over_stock)}</div>
             <div class="metric-value">Percentage: {over_stock_percentage:.2f}%</div>
         </div>
