@@ -241,7 +241,7 @@ st.markdown(f"""
             <div class="metric-value">Percentage: {off_stock_percentage:.2f}%</div>
         </div>
         <div class="metric-box">
-            <div class="metric-title">Total ATP (Available to Promise) {selected_category}</div>
+            <div class="metric-title">Total ATP {selected_category}</div>
             <div class="metric-value">Count: {len(atp_products)}</div>
             <div class="metric-value">Percentage: {atp_percentage:.2f}%</div>
         </div>
