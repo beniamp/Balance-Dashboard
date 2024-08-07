@@ -179,8 +179,9 @@ def atp_table(df):
 # Streamlit app
 st.title('Inventory Metrics Dashboard')
 
-# Category filter
-categories = ["All Categories"] + df["Category"].unique().tolist()
+
+# Category filter with 'All Categories' option
+categories = ['All Categories'] + df['Category'].unique().tolist()
 selected_category = st.selectbox('Select Category', categories)
 
 # Filter DataFrame by selected category
@@ -188,6 +189,14 @@ if selected_category == 'All Categories':
     filtered_df = df
 else:
     filtered_df = df[df['Category'] == selected_category]
+
+# Brand filter with 'All Brands' option, updated based on selected category
+brands = ['All Brands'] + filtered_df['Brand'].unique().tolist()
+selected_brand = st.selectbox('Select Brand', brands)
+
+# Further filter DataFrame by selected brand
+if selected_brand != 'All Brands':
+    filtered_df = filtered_df[filtered_df['Brand'] == selected_brand]
 
 
 # Compute metrics for the filtered DataFrame
