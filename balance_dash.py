@@ -237,7 +237,7 @@ def offstock_table(df):
             values=[df_filtered[col] for col in df_filtered.columns],
             fill_color='floralwhite',
             align='left',
-            height=400
+            height=100
         )
     )])
 
@@ -260,7 +260,7 @@ def overstock_table(df):
             values=[df_filtered[col] for col in df_filtered.columns],
             fill_color='floralwhite',
             align='left',
-            height=400
+            height=100
         )
     )])
 
@@ -283,7 +283,7 @@ def atp_table(df):
             values=[df_filtered[col] for col in df_filtered.columns],
             fill_color='floralwhite',
             align='left',
-            height=400
+            height=100
         )
     )])
 
