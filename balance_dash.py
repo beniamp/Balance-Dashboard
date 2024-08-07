@@ -180,7 +180,7 @@ def atp_table(df):
 st.title('Inventory Metrics Dashboard')
 
 # Category filter
-categories = ['All Categories'] + df['Category'].unique().tolist()
+categories = ["All Categories"] + df["Category"].unique().tolist()
 selected_category = st.selectbox('Select Category', categories)
 
 # Filter DataFrame by selected category
@@ -222,7 +222,9 @@ metric_style = """
 """
 
 # Apply CSS styling
-st.markdown(metric_style, unsafe_allow_html=True)
+with open('style (1).css') as f:
+    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
 
 # Display metrics with styling
 st.markdown(f"""
