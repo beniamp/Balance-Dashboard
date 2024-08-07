@@ -1,6 +1,0 @@
-[build]
-  deps = [
-    "pandas==1.5.2",
-    "plotly==5.6.0",
-    "streamlit==1.20.0",
-  ]
