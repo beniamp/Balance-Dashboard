@@ -191,6 +191,8 @@ else:
 
 
 # Compute metrics for the filtered DataFrame
+total_stock = filtered_df['Total_availability'].sum()
+total_volume = filtered_df['Total_Volume'].sum()
 off_stock = filtered_df[filtered_df['Total_availability'] == 0]
 atp_products = filtered_df[filtered_df['Total_availability'] > filtered_df['Total_Volume']]
 over_stock = filtered_df[filtered_df['Total_availability'] < filtered_df['Total_Volume']]
@@ -222,6 +224,9 @@ metric_style = """
     .metric-box.red {
         border: 2px solid #FF0000;
     }
+    .metric-box.grey{
+        boarder: 2px solid #808080
+    }
     .metric-title {
         font-size: 18px;
         font-weight: bold;
@@ -240,6 +245,15 @@ off_stock_class = "red" if off_stock_percentage > 80 else "green"
 
 # Display metrics with styling
 st.markdown(f"""
+    <div class="metrics-container">
+        <div class="metric-box grey">
+            <div class="metric-title">Total Availability {selected_category}</div>
+            <div class="metric-value">{total_availability}</div>
+        </div>
+        <div class="metric-box grey">
+            <div class="metric-title">Total Volume {selected_category}</div>
+            <div class="metric-value">{total_volume}</div>
+        </div>
     <div class="metrics-container">
         <div class="metric-box {off_stock_class}">
             <div class="metric-title">Total Off Stock in {selected_category}</div>
