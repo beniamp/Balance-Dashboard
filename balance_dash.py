@@ -236,7 +236,7 @@ metric_style = """
 st.markdown(metric_style, unsafe_allow_html=True)
 
 # Determine the class based on the off stock percentage
-off_stock_class = "red" if off_stock_percentage > 60 else "green"
+off_stock_class = "red" if off_stock_percentage > 80 else "green"
 
 # Display metrics with styling
 st.markdown(f"""
