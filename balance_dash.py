@@ -174,6 +174,11 @@ metric_style = """
     .metric-value {
         font-size: 16px;
     }
+    .table-container {
+        max-height: 400px;
+        overflow-y: auto;
+        margin-top: 20px;
+    }
     </style>
 """
 
@@ -237,8 +242,7 @@ def offstock_table(df):
     )])
 
     fig.update_layout(
-    title='Off The Stock Products',
-    height=600)
+    title='Off The Stock Products')
 
     return fig
 
@@ -261,8 +265,7 @@ def overstock_table(df):
     )])
 
     fig.update_layout(
-    title='Over Stock Products',
-    height=600)
+    title='Over Stock Products')
 
     return fig
 
@@ -285,8 +288,7 @@ def atp_table(df):
     )])
 
     fig.update_layout(
-    title='High ATP Products', height=600
-    )
+    title='High ATP Products')
     return fig
 
 # Display tables
