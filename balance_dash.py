@@ -341,7 +341,7 @@ def unit_stock_distribution(df):
         price_range_distribution, 
         x='PriceRange', 
         y='Total_availability', 
-        title='Distribution of Base Prices availability',
+        title='Distribution Range of Base Prices Availability',
         color_discrete_sequence=['goldenrod'])
 
     return fig
@@ -361,7 +361,7 @@ def unit_volume_distribution(df):
         price_range_distribution, 
         x='PriceRange', 
         y='Total_Volume', 
-        title='Distribution of Base Prices availability',
+        title='Distribution Range of Base Prices order volume',
         color_discrete_sequence=['gold'])
 
     return fig
