@@ -237,40 +237,85 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 
-
-
 # Table off the stocks
 def offstock_table(df):
     df_filtered = df[df['Total_availability'] == 0]
     df_filtered = df_filtered[['Product', 'Category', 'Brand', 'Color', 'Base_Price', 'Total_availability', 'Total_Volume']].sort_values(by='Total_Volume', ascending=False)
-    return df_filtered.to_html(index=False, escape=False)
+
+    fig = go.Figure(data=[go.Table(
+        header=dict(
+            values=list(df_filtered.columns),
+            fill_color='dodgerblue',
+            align='left'), 
+        cells=dict(
+            values=[df_filtered[col] for col in df_filtered.columns],
+            fill_color='floralwhite',
+            align='left',
+            height=100
+        )
+    )])
+
+    fig.update_layout(
+    title='Off The Stock Products')
+
+    return fig
 
 # Table over stocks
 def overstock_table(df):
-    df_filtered = df[df['Total_availability'] > df['Total_Volume']]
+    df_filtered = df[(df['Total_availability'] > df['Total_Volume'])]
     df_filtered = df_filtered[['Product', 'Category', 'Brand', 'Color', 'Base_Price', 'Total_availability', 'Total_Volume']].sort_values(by='Total_availability', ascending=False)
-    return df_filtered.to_html(index=False, escape=False)
+
+    fig = go.Figure(data=[go.Table(
+        header=dict(
+            values=list(df_filtered.columns),
+            fill_color='powderblue',
+            align='left'), 
+        cells=dict(
+            values=[df_filtered[col] for col in df_filtered.columns],
+            fill_color='floralwhite',
+            align='left',
+            height=100
+        )
+    )])
+
+    fig.update_layout(
+    title='Over Stock Products')
+
+    return fig
 
 # Table ATP Products
 def atp_table(df):
     df_filtered = df[df['Total_availability'] < df['Total_Volume']]
     df_filtered = df_filtered[['Product', 'Category', 'Brand', 'Color', 'Base_Price', 'Total_availability', 'Total_Volume']].sort_values(by='Total_Volume', ascending=False)
-    return df_filtered.to_html(index=False, escape=False)
+
+    fig = go.Figure(data=[go.Table(
+        header=dict(
+            values=list(df_filtered.columns),
+            fill_color='salmon',
+            align='left'), 
+        cells=dict(
+            values=[df_filtered[col] for col in df_filtered.columns],
+            fill_color='floralwhite',
+            align='left',
+            height=100
+        )
+    )])
+
+    fig.update_layout(
+    title='High ATP Products')
+    return fig
 
 
 
 # Display tables with scrollable containers
 st.markdown('<div class="scrollable-table">', unsafe_allow_html=True)
 st.plotly_chart(offstock_table(filtered_df))
-st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown('<div class="scrollable-table">', unsafe_allow_html=True)
 st.plotly_chart(overstock_table(filtered_df))
-st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown('<div class="scrollable-table">', unsafe_allow_html=True)
 st.plotly_chart(atp_table(filtered_df))
-st.markdown('</div>', unsafe_allow_html=True)
 
 st.plotly_chart(category_bars(filtered_df))
 st.plotly_chart(unit_stock_distribution(filtered_df))
