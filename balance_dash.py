@@ -305,80 +305,89 @@ def atp_table(df):
     return fig
 
 
-# Create a figure with secondary y-axis
-def category_bars(df):
-    fig = make_subplots(specs=[[{'secondary_y': True}]])
+# Table off the stocks
+def offstock_table(df):
+    df_filtered = df[df['Total_availability'] == 0]
+    df_filtered = df_filtered[['Product', 'Category', 'Brand', 'Color', 'Base_Price', 'Total_availability', 'Total_Volume']].sort_values(by='Total_Volume', ascending=False)
 
-    fig.add_trace(go.Bar(
-    x=df['Category'], 
-    y=df['Total_availability'], 
-    name='Total Availability', 
-    marker_color='orange'),
-    secondary_y=True)
-
-    fig.add_trace(go.Bar(
-    x=df['Category'],
-    y=df['Total_Volume'],
-    name='Total Volume',
-    marker_color='indianred'),
-    secondary_y=True)
+    fig = go.Figure(data=[go.Table(
+        header=dict(
+            values=list(df_filtered.columns),
+            fill_color='dodgerblue',
+            align='left'), 
+        cells=dict(
+            values=[df_filtered[col] for col in df_filtered.columns],
+            fill_color='floralwhite',
+            align='left',
+            height=100
+        )
+    )])
 
     fig.update_layout(
-    title='Total Availability and Total Volume by Category',
-    xaxis_title='Category',
-    yaxis_title='Value',
-    barmode='group',  # Group bars next to each other
-    )
-    fig.update_yaxes(title_text='Total Availability', secondary_y=True)
-    fig.update_yaxes(title_text='Total Volume', secondary_y=True)
+    title='Off The Stock Products')
 
     return fig
 
+# Table over stocks
+def overstock_table(df):
+    df_filtered = df[(df['Total_availability'] > df['Total_Volume'])]
+    df_filtered = df_filtered[['Product', 'Category', 'Brand', 'Color', 'Base_Price', 'Total_availability', 'Total_Volume']].sort_values(by='Total_availability', ascending=False)
 
-# Unit price distribution over total available stocks
-def unit_stock_distribution(df):
-    df_filtered = df[df['Total_availability'] > 0]
-    min_price= df['Base_Price'].min()
-    max_price= 200000000
-    bin_edges= [min_price + i*(max_price - min_price) / 80 for i in range(81)]
-    bin_labels= [f'{int(bin_edges[i]):,} - {int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
-    df_filtered['PriceRange'] = pd.cut(df_filtered['Base_Price'], bins=bin_edges, labels=bin_labels, include_lowest=True)
-    price_range_distribution = df_filtered.groupby('PriceRange').sum()[['Total_availability']].reset_index()
-    fig = px.bar(
-        price_range_distribution, 
-        x='PriceRange', 
-        y='Total_availability', 
-        title='Distribution Range of Base Prices Availability',
-        color_discrete_sequence=['goldenrod'])
+    fig = go.Figure(data=[go.Table(
+        header=dict(
+            values=list(df_filtered.columns),
+            fill_color='powderblue',
+            align='left'), 
+        cells=dict(
+            values=[df_filtered[col] for col in df_filtered.columns],
+            fill_color='floralwhite',
+            align='left',
+            height=100
+        )
+    )])
 
+    fig.update_layout(
+    title='Over Stock Products')
+
+    return fig
+
+# Table ATP Products
+def atp_table(df):
+    df_filtered = df[df['Total_availability'] < df['Total_Volume']]
+    df_filtered = df_filtered[['Product', 'Category', 'Brand', 'Color', 'Base_Price', 'Total_availability', 'Total_Volume']].sort_values(by='Total_Volume', ascending=False)
+
+    fig = go.Figure(data=[go.Table(
+        header=dict(
+            values=list(df_filtered.columns),
+            fill_color='salmon',
+            align='left'), 
+        cells=dict(
+            values=[df_filtered[col] for col in df_filtered.columns],
+            fill_color='floralwhite',
+            align='left',
+            height=100
+        )
+    )])
+
+    fig.update_layout(
+    title='High ATP Products')
     return fig
 
 
 
-# Unit price distribution over total available stocks
-def unit_volume_distribution(df):
-    df_filtered = df[df['Total_Volume'] > 0]
-    min_price= df['Base_Price'].min()
-    max_price= 200000000
-    bin_edges= [min_price + i*(max_price - min_price) / 80 for i in range(81)]
-    bin_labels= [f'{int(bin_edges[i]):,} - {int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
-    df_filtered['PriceRange'] = pd.cut(df_filtered['Base_Price'], bins=bin_edges, labels=bin_labels, include_lowest=True)
-    price_range_distribution = df_filtered.groupby('PriceRange').sum()[['Total_Volume']].reset_index()
-    fig = px.bar(
-        price_range_distribution, 
-        x='PriceRange', 
-        y='Total_Volume', 
-        title='Distribution Range of Base Prices order volume',
-        color_discrete_sequence=['gold'])
-
-    return fig
-
-
-
-# Display tables
+# Display tables with scrollable containers
+st.markdown('<div class="scrollable-table">', unsafe_allow_html=True)
 st.plotly_chart(offstock_table(filtered_df))
+st.markdown('</div>', unsafe_allow_html=True)
+
+st.markdown('<div class="scrollable-table">', unsafe_allow_html=True)
 st.plotly_chart(overstock_table(filtered_df))
+st.markdown('</div>', unsafe_allow_html=True)
+
+st.markdown('<div class="scrollable-table">', unsafe_allow_html=True)
 st.plotly_chart(atp_table(filtered_df))
+st.markdown('</div>', unsafe_allow_html=True)
+
 st.plotly_chart(category_bars(filtered_df))
 st.plotly_chart(unit_stock_distribution(filtered_df))
 st.plotly_chart(unit_volume_distribution(filtered_df))
