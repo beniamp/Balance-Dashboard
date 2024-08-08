@@ -154,6 +154,7 @@ full_screen_style = """
         display: flex;
         justify-content: space-around;
         flex-wrap: wrap;
+        width: 100%;
     }
     .metric-box {
         padding: 10px;
