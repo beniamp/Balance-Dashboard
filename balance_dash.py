@@ -143,8 +143,11 @@ total_availability = filtered_df['Total_availability'].sum()
 total_volume = filtered_df['Total_Volume'].sum()
 
 # Define CSS for styling metrics
-metric_style = """
+full_screen_style = """
     <style>
+    .main {
+        padding: 0rem 0rem;
+    }
     .metrics-container {
         display: flex;
         justify-content: space-around;
@@ -181,6 +184,7 @@ metric_style = """
     }
     </style>
 """
+
 
 # Apply CSS styling
 st.markdown(metric_style, unsafe_allow_html=True)
