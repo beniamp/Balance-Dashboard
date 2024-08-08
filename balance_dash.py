@@ -375,6 +375,26 @@ def atp_table(df):
 
 
 
+# Table off the stocks
+def offstock_table(df):
+    df_filtered = df[df['Total_availability'] == 0]
+    df_filtered = df_filtered[['Product', 'Category', 'Brand', 'Color', 'Base_Price', 'Total_availability', 'Total_Volume']].sort_values(by='Total_Volume', ascending=False)
+    return df_filtered.to_html(index=False, escape=False)
+
+# Table over stocks
+def overstock_table(df):
+    df_filtered = df[df['Total_availability'] > df['Total_Volume']]
+    df_filtered = df_filtered[['Product', 'Category', 'Brand', 'Color', 'Base_Price', 'Total_availability', 'Total_Volume']].sort_values(by='Total_availability', ascending=False)
+    return df_filtered.to_html(index=False, escape=False)
+
+# Table ATP Products
+def atp_table(df):
+    df_filtered = df[df['Total_availability'] < df['Total_Volume']]
+    df_filtered = df_filtered[['Product', 'Category', 'Brand', 'Color', 'Base_Price', 'Total_availability', 'Total_Volume']].sort_values(by='Total_Volume', ascending=False)
+    return df_filtered.to_html(index=False, escape=False)
+
+
+
 # Display tables with scrollable containers
 st.markdown('<div class="scrollable-table">', unsafe_allow_html=True)
 st.plotly_chart(offstock_table(filtered_df))
