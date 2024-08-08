@@ -340,7 +340,7 @@ def unit_stock_distribution(df):
     fig = px.bar(
         price_range_distribution, 
         x='PriceRange', 
-        y='Total_Availability', 
+        y='Total_availability', 
         title='Distribution of Base Prices availability',
         color_discrete_sequence=['goldenrod'])
 
