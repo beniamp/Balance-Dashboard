@@ -254,7 +254,7 @@ def offstock_table(df):
 
 # Table over stocks
 def overstock_table(df):
-    df_filtered = df[(df['Total_availability'] > df['Total_Volume']) & (df['Total_Volume'] == 0)]
+    df_filtered = df[(df['Total_availability'] > df['Total_Volume'])]
     df_filtered = df_filtered[['Product', 'Category', 'Brand', 'Color', 'Base_Price', 'Total_availability', 'Total_Volume']].sort_values(by='Total_availability', ascending=False)
 
     fig = go.Figure(data=[go.Table(
