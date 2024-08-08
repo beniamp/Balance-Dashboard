@@ -336,13 +336,33 @@ def unit_stock_distribution(df):
     bin_edges= [min_price + i*(max_price - min_price) / 80 for i in range(81)]
     bin_labels= [f'{int(bin_edges[i]):,} - {int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
     df_filtered['PriceRange'] = pd.cut(df_filtered['Base_Price'], bins=bin_edges, labels=bin_labels, include_lowest=True)
+    price_range_distribution = df_filtered.groupby('PriceRange').sum()[['Total_availability']].reset_index()
+    fig = px.bar(
+        price_range_distribution, 
+        x='PriceRange', 
+        y='Total_Availability', 
+        title='Distribution of Base Prices availability',
+        color_discrete_sequence=['goldenrod'])
+
+    return fig
+
+
+
+# Unit price distribution over total available stocks
+def unit_volume_distribution(df):
+    df_filtered = df[df['Total_Volume'] > 0]
+    min_price= df['Base_Price'].min()
+    max_price= 200000000
+    bin_edges= [min_price + i*(max_price - min_price) / 80 for i in range(81)]
+    bin_labels= [f'{int(bin_edges[i]):,} - {int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
+    df_filtered['PriceRange'] = pd.cut(df_filtered['Base_Price'], bins=bin_edges, labels=bin_labels, include_lowest=True)
     price_range_distribution = df_filtered.groupby('PriceRange').sum()[['Total_Volume']].reset_index()
     fig = px.bar(
         price_range_distribution, 
         x='PriceRange', 
         y='Total_Volume', 
         title='Distribution of Base Prices availability',
-        color_discrete_sequence=['goldenrod'])
+        color_discrete_sequence=['gold'])
 
     return fig
 
@@ -354,3 +374,5 @@ st.plotly_chart(overstock_table(filtered_df))
 st.plotly_chart(atp_table(filtered_df))
 st.plotly_chart(category_bars(filtered_df))
 st.plotly_chart(unit_stock_distribution(filtered_df))
+st.plotly_chart(unit_volume_distribution(filtered_df))
+
