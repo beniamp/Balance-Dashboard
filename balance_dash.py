@@ -125,6 +125,22 @@ over_stock = df[df['Total_availability'] > df['Total_Volume']].reset_index()
 
 
 
+# Example function to export DataFrame to Excel
+def export_to_excel(df, file_name):
+    output = io.BytesIO()
+    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+        df.to_excel(writer, index=False, sheet_name='Sheet1')
+        writer.save()
+    output.seek(0)
+    return output
+
+# Example function to export a chart to PDF
+def export_chart_to_pdf(fig, file_name):
+    output = io.BytesIO()
+    fig.write_image(output, format="pdf")
+    output.seek(0)
+    return output
+
 
 # Streamlit app
 st.title('Inventory Metrics Dashboard')
@@ -337,3 +353,66 @@ st.plotly_chart(category_bars(filtered_df))
 st.plotly_chart(unit_stock_distribution(filtered_df))
 st.plotly_chart(unit_volume_distribution(filtered_df))
 
+
+
+
+# --- Add Export Buttons ---
+st.subheader("Export Data and Charts")
+
+# Export filtered data to Excel
+excel_data = export_to_excel(filtered_df, "filtered_data.xlsx")
+st.download_button(
+    label="Download Filtered Data as Excel",
+    data=excel_data,
+    file_name="filtered_data.xlsx",
+    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+)
+
+# Export each chart as PDF
+pdf_offstock = export_chart_to_pdf(offstock_fig, "offstock_chart.pdf")
+st.download_button(
+    label="Download Off-Stock Chart as PDF",
+    data=pdf_offstock,
+    file_name="offstock_chart.pdf",
+    mime="application/pdf"
+)
+
+pdf_overstock = export_chart_to_pdf(overstock_fig, "overstock_chart.pdf")
+st.download_button(
+    label="Download Overstock Chart as PDF",
+    data=pdf_overstock,
+    file_name="overstock_chart.pdf",
+    mime="application/pdf"
+)
+
+pdf_atp = export_chart_to_pdf(atp_fig, "atp_chart.pdf")
+st.download_button(
+    label="Download ATP Chart as PDF",
+    data=pdf_atp,
+    file_name="atp_chart.pdf",
+    mime="application/pdf"
+)
+
+pdf_category_bars = export_chart_to_pdf(category_bars_fig, "category_bars_chart.pdf")
+st.download_button(
+    label="Download Category Bars Chart as PDF",
+    data=pdf_category_bars,
+    file_name="category_bars_chart.pdf",
+    mime="application/pdf"
+)
+
+pdf_stock_distribution = export_chart_to_pdf(unit_stock_distribution_fig, "stock_distribution_chart.pdf")
+st.download_button(
+    label="Download Stock Distribution Chart as PDF",
+    data=pdf_stock_distribution,
+    file_name="stock_distribution_chart.pdf",
+    mime="application/pdf"
+)
+
+pdf_volume_distribution = export_chart_to_pdf(unit_volume_distribution_fig, "volume_distribution_chart.pdf")
+st.download_button(
+    label="Download Volume Distribution Chart as PDF",
+    data=pdf_volume_distribution,
+    file_name="volume_distribution_chart.pdf",
+    mime="application/pdf"
+)
