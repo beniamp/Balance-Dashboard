@@ -138,15 +138,17 @@ off_stock_percentage = (len(off_stock) / total_products) * 100 if total_products
 atp_percentage = (len(atp_products) / total_products) * 100 if total_products > 0 else 0
 over_stock_percentage = (len(over_stock) / total_products) * 100 if total_products > 0 else 0
 
+
 # Compute total availability and total volume
 total_availability = filtered_df['Total_availability'].sum()
 total_volume = filtered_df['Total_Volume'].sum()
 
-# Define CSS for styling metrics
+
+# Define CSS for full-screen layout and styling metrics
 full_screen_style = """
     <style>
     .main {
-        padding: 0rem 0rem;
+        padding: 0rem;
     }
     .metrics-container {
         display: flex;
@@ -185,9 +187,8 @@ full_screen_style = """
     </style>
 """
 
-
 # Apply CSS styling
-st.markdown(metric_style, unsafe_allow_html=True)
+st.markdown(full_screen_style, unsafe_allow_html=True)
 
 # Determine the class based on the off stock percentage
 off_stock_class = "red" if off_stock_percentage > 60 else "green"
