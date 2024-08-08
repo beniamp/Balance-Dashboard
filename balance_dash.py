@@ -185,6 +185,13 @@ full_screen_style = """
         overflow-y: auto;
         margin-top: 20px;
     }
+    .scrollable-table {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid;
+    padding: 5px;
+    margin-bottom: 20px
+    }
     </style>
 """
 
