@@ -424,5 +424,3 @@ st.download_button(
     file_name="volume_distribution_chart.pdf",
     mime="application/pdf"
 )
-
-)
