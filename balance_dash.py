@@ -368,6 +368,15 @@ st.plotly_chart(unit_volume_distribution_fig)
 st.subheader("Export Data and Charts")
 
 
+def export_to_excel(offstock_fig, "offstock_table.xlsx"):
+    output = io.BytesIO()
+    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+        df.to_excel(writer, index=False, sheet_name='Sheet1')
+        writer.save()
+    output.seek(0)
+    return output.getvalue()
+
+
 # Export each chart as PDF
 pdf_offstock = export_chart_to_pdf(offstock_fig, "offstock_chart.pdf")
 st.download_button(
