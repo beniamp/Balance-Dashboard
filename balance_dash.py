@@ -368,7 +368,7 @@ st.plotly_chart(unit_volume_distribution_fig)
 st.subheader("Export Data and Charts")
 
 
-def export_to_excel(df, file_name="offstock_table.xlsx"):
+def export_to_excel(df_filtered, file_name="offstock_table.xlsx"):
     output = io.BytesIO()
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
         df.to_excel(writer, index=False, sheet_name='Sheet1')
@@ -378,7 +378,7 @@ def export_to_excel(df, file_name="offstock_table.xlsx"):
 
 
 # Export filtered data to Excel
-excel_data = export_to_excel(offstock_fig, "filtered_data.xlsx")
+excel_data = export_to_excel(df_filtered, "filtered_data.xlsx")
 st.download_button(
     label="Download Filtered Data as Excel",
     data=excel_data,
