@@ -373,7 +373,7 @@ st.plotly_chart(offstock_fig)
 st.plotly_chart(overstock_fig)
 
 # Export filtered data to Excel
-excel_data = export_to_excel(df_filtered_overstock, "overstock.xlsx")
+excel_data = export_to_excel(df_filtered, "overstock.xlsx")
 st.download_button(
     label="Download Filtered Data as Excel",
     data=excel_data,
