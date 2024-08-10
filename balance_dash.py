@@ -382,9 +382,9 @@ atp_fig = atp_table(filtered_df)
 category_bars_fig = category_bars(filtered_df)
 unit_stock_distribution_fig = unit_stock_distribution(filtered_df)
 unit_volume_distribution_fig = unit_volume_distribution(filtered_df)
-df_filtered_atp = atp_table_df(df_filtered)
-df_filtered_over = overstock_table_df(df_filtered)
-df_filtered_out = offstock_table_df(df_filtered)
+df_filtered_atp = atp_table_df(filtered_df)
+df_filtered_over = overstock_table_df(filtered_df)
+df_filtered_out = offstock_table_df(filtered_df)
 
 
 
