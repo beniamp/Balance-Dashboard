@@ -345,16 +345,22 @@ def atp_table(df):
 
 
 
-# Display charts
 
-st.plotly_chart(offstock_table(filtered_df))
-st.plotly_chart(overstock_table(filtered_df))
-st.plotly_chart(atp_table(filtered_df))
+# Display charts and assign them to variables
+offstock_fig = offstock_table(filtered_df)
+overstock_fig = overstock_table(filtered_df)
+atp_fig = atp_table(filtered_df)
+category_bars_fig = category_bars(filtered_df)
+unit_stock_distribution_fig = unit_stock_distribution(filtered_df)
+unit_volume_distribution_fig = unit_volume_distribution(filtered_df)
 
-st.plotly_chart(category_bars(filtered_df))
-st.plotly_chart(unit_stock_distribution(filtered_df))
-st.plotly_chart(unit_volume_distribution(filtered_df))
-
+# Display the charts
+st.plotly_chart(offstock_fig)
+st.plotly_chart(overstock_fig)
+st.plotly_chart(atp_fig)
+st.plotly_chart(category_bars_fig)
+st.plotly_chart(unit_stock_distribution_fig)
+st.plotly_chart(unit_volume_distribution_fig)
 
 
 
@@ -417,4 +423,6 @@ st.download_button(
     data=pdf_volume_distribution,
     file_name="volume_distribution_chart.pdf",
     mime="application/pdf"
+)
+
 )
