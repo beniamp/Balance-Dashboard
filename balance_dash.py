@@ -322,14 +322,14 @@ def overstock_table(df):
     fig = go.Figure(data=[go.Table(
         header=dict(
             values=list(df_filtered.columns),
-            fill_color='powderblue',
+            fill_color='white',
             align='left'
         ), 
         cells=dict(
             values=[df_filtered[col] for col in df_filtered.columns],
             fill_color='floralwhite',
             align='left',
-            height=30  # Adjust height to fit content better
+            height=5  # Adjust height to fit content better
         )
     )])
 
