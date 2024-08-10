@@ -278,7 +278,7 @@ st.markdown(f"""
 # Table off the stocks
 def offstock_table(df):
     df_filtered = df[df['Total_availability'] == 0]
-    df_filtered = df_filtered[['Product', 'Category', 'Brand', 'Color', 'Base_Price', 'Total_availability', 'Total_Volume']].sort_values(by='Total_Volume', ascending=False)
+    df_filtered = df_filtered[['Product', 'Category', 'Brand', 'Color', 'Base_Price', 'Total_availability', 'Total_Volume']].sort_values(by='Total_Volume', ascending=False).reset_index()
 
     fig = go.Figure(data=[go.Table(
         header=dict(
@@ -298,10 +298,22 @@ def offstock_table(df):
 
     return fig
 
+
+
+# Table off the stocks
+def offstock_table_df(df):
+    df_filtered = df[df['Total_availability'] == 0]
+    df_filtered = df_filtered[['Product', 'Category', 'Brand', 'Color', 'Base_Price', 'Total_availability', 'Total_Volume']].sort_values(by='Total_Volume', ascending=False).reset_index()
+    return df_filtered
+
+
+
+
+
 # Table over stocks
 def overstock_table(df):
     df_filtered = df[(df['Total_availability'] > df['Total_Volume'])]
-    df_filtered = df_filtered[['Product', 'Category', 'Brand', 'Color', 'Base_Price', 'Total_availability', 'Total_Volume']].sort_values(by='Total_availability', ascending=False)
+    df_filtered = df_filtered[['Product', 'Category', 'Brand', 'Color', 'Base_Price', 'Total_availability', 'Total_Volume']].sort_values(by='Total_availability', ascending=False).reset_index()
 
     fig = go.Figure(data=[go.Table(
         header=dict(
@@ -321,10 +333,20 @@ def overstock_table(df):
 
     return fig
 
+
+# Table over stocks
+def overstock_table_df(df):
+    df_filtered = df[(df['Total_availability'] > df['Total_Volume'])]
+    df_filtered = df_filtered[['Product', 'Category', 'Brand', 'Color', 'Base_Price', 'Total_availability', 'Total_Volume']].sort_values(by='Total_availability', ascending=False).reset_index()
+    return df_filtered
+
+
+
+
 # Table ATP Products
 def atp_table(df):
     df_filtered = df[df['Total_availability'] < df['Total_Volume']]
-    df_filtered = df_filtered[['Product', 'Category', 'Brand', 'Color', 'Base_Price', 'Total_availability', 'Total_Volume']].sort_values(by='Total_Volume', ascending=False)
+    df_filtered = df_filtered[['Product', 'Category', 'Brand', 'Color', 'Base_Price', 'Total_availability', 'Total_Volume']].sort_values(by='Total_Volume', ascending=False).reset_index()
 
     fig = go.Figure(data=[go.Table(
         header=dict(
@@ -344,6 +366,13 @@ def atp_table(df):
     return fig
 
 
+# Table ATP Products
+def atp_table_df(df):
+    df_filtered = df[df['Total_availability'] < df['Total_Volume']]
+    df_filtered = df_filtered[['Product', 'Category', 'Brand', 'Color', 'Base_Price', 'Total_availability', 'Total_Volume']].sort_values(by='Total_Volume', ascending=False).reset_index()
+    return df_filtered
+
+
 
 
 # Display charts and assign them to variables
@@ -353,8 +382,9 @@ atp_fig = atp_table(filtered_df)
 category_bars_fig = category_bars(filtered_df)
 unit_stock_distribution_fig = unit_stock_distribution(filtered_df)
 unit_volume_distribution_fig = unit_volume_distribution(filtered_df)
-df_filtered_overstock = df[(df['Total_availability'] > df['Total_Volume'])]
-df_filtered_overstock = df_filtered_overstock[['Product', 'Category', 'Brand', 'Color', 'Base_Price', 'Total_availability', 'Total_Volume']].sort_values(by='Total_availability', ascending=False).reset_index()
+df_filtered_atp = atp_table_df(df_filtered)
+df_filtered_over = overstock_table_df(df_filtered)
+df_filtered_out = offstock_table_df(df_filtered)
 
 
 
@@ -367,13 +397,11 @@ def export_to_excel(df, file_name="filtered_data.xlsx"):
     return output.getvalue()
 
 
-# Display the charts
+# Display the  offstock chart
 st.plotly_chart(offstock_fig)
 
-st.plotly_chart(overstock_fig)
-
 # Export filtered data to Excel
-excel_data = export_to_excel(df_filtered, "overstock.xlsx")
+excel_data = export_to_excel(df_filtered_out, "overstock.xlsx")
 st.download_button(
     label="Download Filtered Data as Excel",
     data=excel_data,
@@ -381,7 +409,30 @@ st.download_button(
     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 )
 
+# Display the  overstock chart
+st.plotly_chart(overstock_fig)
+
+# Export filtered data to Excel
+excel_data = export_to_excel(df_filtered_over, "overstock.xlsx")
+st.download_button(
+    label="Download Filtered Data as Excel",
+    data=excel_data,
+    file_name="over_stock_data.xlsx",
+    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+)
+
+# Display the  atp chart
 st.plotly_chart(atp_fig)
+
+# Export filtered data to Excel
+excel_data = export_to_excel(df_filtered_atp, "overstock.xlsx")
+st.download_button(
+    label="Download Filtered Data as Excel",
+    data=excel_data,
+    file_name="over_stock_data.xlsx",
+    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+)
+
 st.plotly_chart(category_bars_fig)
 st.plotly_chart(unit_stock_distribution_fig)
 st.plotly_chart(unit_volume_distribution_fig)
