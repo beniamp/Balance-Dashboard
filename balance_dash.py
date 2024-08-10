@@ -359,7 +359,6 @@ def atp_table(df):
             values=[df_filtered[col] for col in df_filtered.columns],
             fill_color='floralwhite',
             align='left',
-            height=100
         )
     )])
 
