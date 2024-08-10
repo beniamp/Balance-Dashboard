@@ -401,11 +401,11 @@ def export_to_excel(df, file_name="filtered_data.xlsx"):
 st.plotly_chart(offstock_fig)
 
 # Export filtered data to Excel
-excel_data = export_to_excel(df_filtered_out, "overstock.xlsx")
+excel_data = export_to_excel(df_filtered_out, "offstock.xlsx")
 st.download_button(
-    label="Download Filtered Data as Excel",
+    label="Download Off Stock Data as Excel",
     data=excel_data,
-    file_name="over_stock_data.xlsx",
+    file_name="off_stock_data.xlsx",
     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 )
 
@@ -415,7 +415,7 @@ st.plotly_chart(overstock_fig)
 # Export filtered data to Excel
 excel_data = export_to_excel(df_filtered_over, "overstock.xlsx")
 st.download_button(
-    label="Download Filtered Data as Excel",
+    label="Download Over Stock Data as Excel",
     data=excel_data,
     file_name="over_stock_data.xlsx",
     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
@@ -425,11 +425,11 @@ st.download_button(
 st.plotly_chart(atp_fig)
 
 # Export filtered data to Excel
-excel_data = export_to_excel(df_filtered_atp, "overstock.xlsx")
+excel_data = export_to_excel(df_filtered_atp, "atp.xlsx")
 st.download_button(
-    label="Download Filtered Data as Excel",
+    label="Download ATP Data as Excel",
     data=excel_data,
-    file_name="over_stock_data.xlsx",
+    file_name="atp_data.xlsx",
     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 )
 
@@ -437,10 +437,6 @@ st.plotly_chart(category_bars_fig)
 st.plotly_chart(unit_stock_distribution_fig)
 st.plotly_chart(unit_volume_distribution_fig)
 
-
-
-# --- Add Export Buttons ---
-st.subheader("Export Data and Charts")
 
 
 
