@@ -378,7 +378,7 @@ def export_to_excel(df, file_name="offstock_table.xlsx"):
 
 
 # Export filtered data to Excel
-excel_data = export_to_excel(filtered_df, "filtered_data.xlsx")
+excel_data = export_to_excel(offstock_fig, "filtered_data.xlsx")
 st.download_button(
     label="Download Filtered Data as Excel",
     data=excel_data,
