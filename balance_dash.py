@@ -311,25 +311,29 @@ def offstock_table_df(df):
 
 
 # Table over stocks
-def overstock_table(df):
-    df_filtered = df[(df['Total_availability'] > df['Total_Volume'])]
-    df_filtered = df_filtered[['Product', 'Category', 'Brand', 'Color', 'Base_Price', 'Total_availability', 'Total_Volume']].sort_values(by='Total_availability', ascending=False).reset_index(drop=True)
 
+def overstock_table(df):
+    # Filter and reset index
+    df_filtered = df[df['Total_availability'] > df['Total_Volume']]
+    df_filtered = df_filtered[['Product', 'Category', 'Brand', 'Color', 'Base_Price', 'Total_availability', 'Total_Volume']]
+    df_filtered = df_filtered.sort_values(by='Total_availability', ascending=False).reset_index(drop=True)
+    
+    # Create the Plotly table
     fig = go.Figure(data=[go.Table(
         header=dict(
             values=list(df_filtered.columns),
             fill_color='powderblue',
-            align='left'), 
+            align='left'
+        ), 
         cells=dict(
             values=[df_filtered[col] for col in df_filtered.columns],
             fill_color='floralwhite',
             align='left',
-            height=100
+            height=30  # Adjust height to fit content better
         )
     )])
 
-    fig.update_layout(
-    title='Over Stock Products')
+    fig.update_layout(title='Over Stock Products')
 
     return fig
 
