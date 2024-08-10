@@ -356,18 +356,6 @@ unit_volume_distribution_fig = unit_volume_distribution(filtered_df)
 df_filtered_overstock = df[(df['Total_availability'] > df['Total_Volume'])]
 df_filtered_overstock = df_filtered_overstock[['Product', 'Category', 'Brand', 'Color', 'Base_Price', 'Total_availability', 'Total_Volume']].sort_values(by='Total_availability', ascending=False).reset_index()
 
-# Display the charts
-st.plotly_chart(offstock_fig)
-st.plotly_chart(overstock_fig)
-st.plotly_chart(atp_fig)
-st.plotly_chart(category_bars_fig)
-st.plotly_chart(unit_stock_distribution_fig)
-st.plotly_chart(unit_volume_distribution_fig)
-
-
-
-# --- Add Export Buttons ---
-st.subheader("Export Data and Charts")
 
 
 def export_to_excel(df, file_name="filtered_data.xlsx"):
@@ -379,62 +367,34 @@ def export_to_excel(df, file_name="filtered_data.xlsx"):
     return output.getvalue()
 
 
+# Display the charts
+st.plotly_chart(offstock_fig)
+
+st.plotly_chart(overstock_fig)
+
 # Export filtered data to Excel
-excel_data = export_to_excel(df_filtered_overstock, "filtered_data.xlsx")
+excel_data = export_to_excel(df_filtered_overstock, "overstock.xlsx")
 st.download_button(
     label="Download Filtered Data as Excel",
     data=excel_data,
-    file_name="filtered_data.xlsx",
+    file_name="over_stock_data.xlsx",
     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 )
 
+st.plotly_chart(atp_fig)
+st.plotly_chart(category_bars_fig)
+st.plotly_chart(unit_stock_distribution_fig)
+st.plotly_chart(unit_volume_distribution_fig)
 
 
-# Export each chart as PDF
-pdf_offstock = export_chart_to_pdf(offstock_fig, "offstock_chart.pdf")
-st.download_button(
-    label="Download Off-Stock Chart as PDF",
-    data=pdf_offstock,
-    file_name="offstock_chart.pdf",
-    mime="application/pdf"
-)
 
-pdf_overstock = export_chart_to_pdf(overstock_fig, "overstock_chart.pdf")
-st.download_button(
-    label="Download Overstock Chart as PDF",
-    data=pdf_overstock,
-    file_name="overstock_chart.pdf",
-    mime="application/pdf"
-)
+# --- Add Export Buttons ---
+st.subheader("Export Data and Charts")
 
-pdf_atp = export_chart_to_pdf(atp_fig, "atp_chart.pdf")
-st.download_button(
-    label="Download ATP Chart as PDF",
-    data=pdf_atp,
-    file_name="atp_chart.pdf",
-    mime="application/pdf"
-)
 
-pdf_category_bars = export_chart_to_pdf(category_bars_fig, "category_bars_chart.pdf")
-st.download_button(
-    label="Download Category Bars Chart as PDF",
-    data=pdf_category_bars,
-    file_name="category_bars_chart.pdf",
-    mime="application/pdf"
-)
 
-pdf_stock_distribution = export_chart_to_pdf(unit_stock_distribution_fig, "stock_distribution_chart.pdf")
-st.download_button(
-    label="Download Stock Distribution Chart as PDF",
-    data=pdf_stock_distribution,
-    file_name="stock_distribution_chart.pdf",
-    mime="application/pdf"
-)
 
-pdf_volume_distribution = export_chart_to_pdf(unit_volume_distribution_fig, "volume_distribution_chart.pdf")
-st.download_button(
-    label="Download Volume Distribution Chart as PDF",
-    data=pdf_volume_distribution,
-    file_name="volume_distribution_chart.pdf",
-    mime="application/pdf"
-)
+
+
+
+
