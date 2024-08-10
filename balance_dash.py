@@ -367,14 +367,6 @@ st.plotly_chart(unit_volume_distribution_fig)
 # --- Add Export Buttons ---
 st.subheader("Export Data and Charts")
 
-# Export filtered data to Excel
-excel_data = export_to_excel(filtered_df, "filtered_data.xlsx")
-st.download_button(
-    label="Download Filtered Data as Excel",
-    data=excel_data,
-    file_name="filtered_data.xlsx",
-    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-)
 
 # Export each chart as PDF
 pdf_offstock = export_chart_to_pdf(offstock_fig, "offstock_chart.pdf")
