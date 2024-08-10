@@ -354,6 +354,7 @@ category_bars_fig = category_bars(filtered_df)
 unit_stock_distribution_fig = unit_stock_distribution(filtered_df)
 unit_volume_distribution_fig = unit_volume_distribution(filtered_df)
 
+
 # Display the charts
 st.plotly_chart(offstock_fig)
 st.plotly_chart(overstock_fig)
@@ -378,7 +379,7 @@ def export_to_excel(df_filtered, file_name="offstock_table.xlsx"):
 
 
 # Export filtered data to Excel
-excel_data = export_to_excel(offstock_fig, "filtered_data.xlsx")
+excel_data = export_to_excel(df_filtered, "filtered_data.xlsx")
 st.download_button(
     label="Download Filtered Data as Excel",
     data=excel_data,
