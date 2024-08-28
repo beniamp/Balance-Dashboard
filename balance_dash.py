@@ -70,7 +70,7 @@ def unit_stock_price_distribution(df):
 def unit_stock_price_distribution1(df):
     # Define price bins with a more scalable approach
     min_price = 0
-    max_price = 25000000
+    max_price = 5000000
     # Define bin edges; these values can be adjusted as needed
     bin_edges = [min_price + i*(max_price-min_price)/80 for i in range(81)]
     bin_labels = [f'{int(bin_edges[i]):,}-{int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
@@ -85,6 +85,24 @@ def unit_stock_price_distribution1(df):
     return fig
 
 def unit_stock_price_distribution2(df):
+    # Define price bins with a more scalable approach
+    min_price = 5000000
+    max_price = 25000000
+    # Define bin edges; these values can be adjusted as needed
+    bin_edges = [min_price + i*(max_price-min_price)/80 for i in range(81)]
+    bin_labels = [f'{int(bin_edges[i]):,}-{int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
+    # Assign bin labels to each price
+    df['PriceRange'] = pd.cut(df['BasePrice'], bins=bin_edges, labels=bin_labels, include_lowest=True)
+    # Aggregate quantity sold within each price range
+    price_range_distribution = df.groupby('PriceRange').sum()[['Quantity']].reset_index()
+    # Create bar chart
+    fig = px.bar(price_range_distribution, x='PriceRange', y='Quantity', title='Distribution of Stocks Unit Prices and Quantity Sold',
+                 color_discrete_sequence=['gold'])
+    
+    return fig
+
+
+def unit_stock_price_distribution3(df):
     # Define price bins with a more scalable approach
     min_price = 25000000
     max_price = 80000000
@@ -101,8 +119,7 @@ def unit_stock_price_distribution2(df):
     
     return fig
 
-
-def unit_stock_price_distribution3(df):
+def unit_stock_price_distribution4(df):
     # Define price bins with a more scalable approach
     min_price = 80000000
     max_price = 200000000
@@ -141,13 +158,15 @@ def unit_order_price_distribution(df):
 
 
 st.plotly_chart(unit_stock_price_distribution(df_stocks))
-col1, col2, col3 = st.columns((5, 5, 5))
+col1, col2, col3, col4 = st.columns((5, 5, 5, 5))
 with col1: 
     st.plotly_chart(unit_stock_price_distribution1(df_stocks))
 with col2:
     st.plotly_chart(unit_stock_price_distribution2(df_stocks))
 with col3:
     st.plotly_chart(unit_stock_price_distribution3(df_stocks))
+with col4: 
+    st.plotly_chart(unit_stock_price_distribution4(df_stock))
 
     
 st.plotly_chart(unit_order_price_distribution(df_orders))
