@@ -166,7 +166,7 @@ with col2:
 with col3:
     st.plotly_chart(unit_stock_price_distribution3(df_stocks))
 with col4: 
-    st.plotly_chart(unit_stock_price_distribution4(df_stock))
+    st.plotly_chart(unit_stock_price_distribution4(df_stocks))
 
     
 st.plotly_chart(unit_order_price_distribution(df_orders))
