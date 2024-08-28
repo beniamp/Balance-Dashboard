@@ -210,7 +210,7 @@ def unit_order_price_distribution3(df):
 def unit_order_price_distribution4(df):
     # Define price bins with a more scalable approach
     min_price = 80000000
-    max_price = 20000000
+    max_price = 200000000
     # Define bin edges; these values can be adjusted as needed
     bin_edges = [min_price + i*(max_price-min_price)/40 for i in range(81)]
     bin_labels = [f'{int(bin_edges[i]):,}-{int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
