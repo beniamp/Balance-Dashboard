@@ -184,7 +184,7 @@ def unit_order_price_distribution2(df):
     # Aggregate quantity sold within each price range
     price_range_distribution = df.groupby('PriceRange').sum()[['Quantity']].reset_index()
     # Create bar chart
-    fig = px.bar(price_range_distribution, x='PriceRange', y='Quantity',,
+    fig = px.bar(price_range_distribution, x='PriceRange', y='Quantity',
                  color_discrete_sequence=['silver'])
     
     return fig
