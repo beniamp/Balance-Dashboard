@@ -85,7 +85,7 @@ def unit_order_price_distribution(df):
     
     return fig
 
-unit_price_distribution(df_orders)
+
 
 
 st.plotly_chart(unit_stock_price_distribution(df_stocks))
