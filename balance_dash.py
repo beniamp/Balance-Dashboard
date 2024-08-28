@@ -250,6 +250,8 @@ with col4:
     st.plotly_chart(unit_order_price_distribution4(df_orders))
 
 
+st.markdown("this is the header")
+st.subheader("this is the subheader")
 
 
 
