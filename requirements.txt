@@ -4,3 +4,7 @@ plotly
 numpy
 xlsxwriter
 kaleido
+altair
+PIL
+convertdate
+datetime
