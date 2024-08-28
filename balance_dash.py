@@ -72,7 +72,7 @@ def unit_stock_price_distribution1(df):
     min_price = 0
     max_price = 5000000
     # Define bin edges; these values can be adjusted as needed
-    bin_edges = [min_price + i*(max_price-min_price)/80 for i in range(81)]
+    bin_edges = [min_price + i*(max_price-min_price)/40 for i in range(81)]
     bin_labels = [f'{int(bin_edges[i]):,}-{int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
     # Assign bin labels to each price
     df['PriceRange'] = pd.cut(df['BasePrice'], bins=bin_edges, labels=bin_labels, include_lowest=True)
@@ -89,7 +89,7 @@ def unit_stock_price_distribution2(df):
     min_price = 5000000
     max_price = 25000000
     # Define bin edges; these values can be adjusted as needed
-    bin_edges = [min_price + i*(max_price-min_price)/80 for i in range(81)]
+    bin_edges = [min_price + i*(max_price-min_price)/40 for i in range(81)]
     bin_labels = [f'{int(bin_edges[i]):,}-{int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
     # Assign bin labels to each price
     df['PriceRange'] = pd.cut(df['BasePrice'], bins=bin_edges, labels=bin_labels, include_lowest=True)
@@ -107,7 +107,7 @@ def unit_stock_price_distribution3(df):
     min_price = 25000000
     max_price = 80000000
     # Define bin edges; these values can be adjusted as needed
-    bin_edges = [min_price + i*(max_price-min_price)/80 for i in range(81)]
+    bin_edges = [min_price + i*(max_price-min_price)/40 for i in range(81)]
     bin_labels = [f'{int(bin_edges[i]):,}-{int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
     # Assign bin labels to each price
     df['PriceRange'] = pd.cut(df['BasePrice'], bins=bin_edges, labels=bin_labels, include_lowest=True)
@@ -124,7 +124,7 @@ def unit_stock_price_distribution4(df):
     min_price = 80000000
     max_price = 200000000
     # Define bin edges; these values can be adjusted as needed
-    bin_edges = [min_price + i*(max_price-min_price)/80 for i in range(81)]
+    bin_edges = [min_price + i*(max_price-min_price)/40 for i in range(81)]
     bin_labels = [f'{int(bin_edges[i]):,}-{int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
     # Assign bin labels to each price
     df['PriceRange'] = pd.cut(df['BasePrice'], bins=bin_edges, labels=bin_labels, include_lowest=True)
@@ -142,7 +142,7 @@ def unit_order_price_distribution(df):
     min_price = df['UnitBasePrice'].min()
     max_price = 200000000
     # Define bin edges; these values can be adjusted as needed
-    bin_edges = [min_price + i*(max_price-min_price)/80 for i in range(81)]
+    bin_edges = [min_price + i*(max_price-min_price)/40 for i in range(81)]
     bin_labels = [f'{int(bin_edges[i]):,}-{int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
     # Assign bin labels to each price
     df['PriceRange'] = pd.cut(df['UnitBasePrice'], bins=bin_edges, labels=bin_labels, include_lowest=True)
