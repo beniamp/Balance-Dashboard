@@ -1,10 +1,10 @@
 streamlit
 pandas
 plotly
-numpy
-xlsxwriter
-kaleido
-altair
-PIL
-convertdate
+pyodbc
+matplotlib
+Image
 datetime
+convertdate
+timedelta
+altair
