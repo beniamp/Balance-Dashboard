@@ -79,7 +79,7 @@ def unit_stock_price_distribution1(df):
     # Aggregate quantity sold within each price range
     price_range_distribution = df.groupby('PriceRange').sum()[['Quantity']].reset_index()
     # Create bar chart
-    fig = px.bar(price_range_distribution, x='PriceRange', y='Quantity', title='Distribution of Stocks Unit Prices and Quantity Sold',
+    fig = px.bar(price_range_distribution, x='PriceRange', y='Quantity',
                  color_discrete_sequence=['gold'])
     
     return fig
@@ -96,7 +96,7 @@ def unit_stock_price_distribution2(df):
     # Aggregate quantity sold within each price range
     price_range_distribution = df.groupby('PriceRange').sum()[['Quantity']].reset_index()
     # Create bar chart
-    fig = px.bar(price_range_distribution, x='PriceRange', y='Quantity', title='Distribution of Stocks Unit Prices and Quantity Sold',
+    fig = px.bar(price_range_distribution, x='PriceRange', y='Quantity',
                  color_discrete_sequence=['gold'])
     
     return fig
@@ -114,7 +114,7 @@ def unit_stock_price_distribution3(df):
     # Aggregate quantity sold within each price range
     price_range_distribution = df.groupby('PriceRange').sum()[['Quantity']].reset_index()
     # Create bar chart
-    fig = px.bar(price_range_distribution, x='PriceRange', y='Quantity', title='Distribution of Stocks Unit Prices and Quantity Sold',
+    fig = px.bar(price_range_distribution, x='PriceRange', y='Quantity',
                  color_discrete_sequence=['gold'])
     
     return fig
@@ -131,7 +131,7 @@ def unit_stock_price_distribution4(df):
     # Aggregate quantity sold within each price range
     price_range_distribution = df.groupby('PriceRange').sum()[['Quantity']].reset_index()
     # Create bar chart
-    fig = px.bar(price_range_distribution, x='PriceRange', y='Quantity', title='Distribution of Stocks Unit Prices and Quantity Sold',
+    fig = px.bar(price_range_distribution, x='PriceRange', y='Quantity',
                  color_discrete_sequence=['gold'])
     
     return fig
@@ -149,7 +149,7 @@ def unit_order_price_distribution(df):
     # Aggregate quantity sold within each price range
     price_range_distribution = df.groupby('PriceRange').sum()[['Quantity']].reset_index()
     # Create bar chart
-    fig = px.bar(price_range_distribution, x='PriceRange', y='Quantity', title='Distribution of Orders Unit Prices and Quantity Sold',
+    fig = px.bar(price_range_distribution, x='PriceRange', y='Quantity',
                  color_discrete_sequence=['silver'])
     
     return fig
@@ -229,12 +229,16 @@ def unit_order_price_distribution4(df):
 st.plotly_chart(unit_stock_price_distribution(df_stocks))
 col1, col2, col3, col4 = st.columns((5, 5, 5, 5))
 with col1: 
+    st.markdown("Up to 500 Thousand")
     st.plotly_chart(unit_stock_price_distribution1(df_stocks))
 with col2:
+    st.markdown("500 Thousand to 2.5 Millions")
     st.plotly_chart(unit_stock_price_distribution2(df_stocks))
 with col3:
+    st.markdown("2.5 Millions to 8 Millions")
     st.plotly_chart(unit_stock_price_distribution3(df_stocks))
 with col4: 
+    st.markdown("8 Millions to 200 Millions")
     st.plotly_chart(unit_stock_price_distribution4(df_stocks))
 
     
