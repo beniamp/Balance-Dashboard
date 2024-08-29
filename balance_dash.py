@@ -48,6 +48,21 @@ with open('style.css') as f:
 df_stocks = pd.read_csv('Stocks.csv')
 df_orders = pd.read_csv('Orders.csv')
 
+categories_ord = 'All categories' + df_orders['Category'].unique()
+categories_stc = 'All categories' + df_stocks['Category'].unique()
+
+selected_cat_ord = st.selectbox(categories_ord)
+
+if selected_cat_ord != 'All categories': 
+    filtered_ord = df_orders[df_orders['Category'] == selected_Cat_ord]
+else:
+    filtered_ord = df_orders 
+
+
+
+
+
+
 
 def unit_stock_price_distribution(df):
     # Define price bins with a more scalable approach
@@ -134,6 +149,15 @@ def unit_stock_price_distribution4(df):
                  color_discrete_sequence=['gold'])
     
     return fig
+
+
+
+selected_cat_stc = st.selectbox(categories_stc)
+
+if selected_cat_stc != 'All categories':
+    filtered_stc = df_stocks[df_stocks['Category'] == selected_cat_stc] 
+else:
+    filtered_stc = df_stocks
 
 
 def unit_order_price_distribution(df):
@@ -225,36 +249,36 @@ def unit_order_price_distribution4(df):
 
 
 
-st.plotly_chart(unit_stock_price_distribution(df_stocks))
+st.plotly_chart(unit_stock_price_distribution(filtered_stc))
 col1, col2, col3, col4 = st.columns((5, 5, 5, 5))
 with col1: 
     st.markdown("Up to 500 Thousand")
-    st.plotly_chart(unit_stock_price_distribution1(df_stocks))
+    st.plotly_chart(unit_stock_price_distribution1(filtered_stc))
 with col2:
     st.markdown("500 Thousand to 2.5 Millions")
-    st.plotly_chart(unit_stock_price_distribution2(df_stocks))
+    st.plotly_chart(unit_stock_price_distribution2(filtered_stc))
 with col3:
     st.markdown("2.5 Millions to 8 Millions")
-    st.plotly_chart(unit_stock_price_distribution3(df_stocks))
+    st.plotly_chart(unit_stock_price_distribution3(filtered_stc))
 with col4: 
     st.markdown("8 Millions to 200 Millions")
-    st.plotly_chart(unit_stock_price_distribution4(df_stocks))
+    st.plotly_chart(unit_stock_price_distribution4(filtered_stc))
 
     
-st.plotly_chart(unit_order_price_distribution(df_orders))
+st.plotly_chart(unit_order_price_distribution(filtered_ord))
 col1, col2, col3, col4 = st.columns((5, 5, 5, 5))
 with col1:
     st.markdown("Up to 500 Thousand")
-    st.plotly_chart(unit_order_price_distribution1(df_orders))
+    st.plotly_chart(unit_order_price_distribution1(filtered_ord))
 with col2:
     st.markdown("500 Thousand to 2.5 Millions")
-    st.plotly_chart(unit_order_price_distribution2(df_orders))
+    st.plotly_chart(unit_order_price_distribution2(filtered_ord))
 with col3:
     st.markdown("2.5 Millions to 8 Millions")
-    st.plotly_chart(unit_order_price_distribution3(df_orders))
+    st.plotly_chart(unit_order_price_distribution3(filtered_ord))
 with col4:
     st.markdown("8 Millions to 200 Millions")
-    st.plotly_chart(unit_order_price_distribution4(df_orders))
+    st.plotly_chart(unit_order_price_distribution4(filtered_ord))
 
 
 
