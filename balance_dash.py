@@ -54,7 +54,7 @@ categories_stc = ['All categories'] + df_stocks['Category'].unique().tolist()
 selected_cat_ord = st.selectbox('categories', categories_ord)
 
 if selected_cat_ord != 'All categories': 
-    filtered_ord = df_orders[df_orders['Category'] == selected_Cat_ord]
+    filtered_ord = df_orders[df_orders['Category'] == selected_cat_ord]
 else:
     filtered_ord = df_orders 
 
