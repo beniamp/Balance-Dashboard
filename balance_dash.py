@@ -61,6 +61,12 @@ else:
 
 
 
+selected_cat_stc = st.selectbox('categories', categories_stc)
+
+if selected_cat_stc != 'All categories':
+    filtered_stc = df_stocks[df_stocks['Category'] == selected_cat_stc] 
+else:
+    filtered_stc = df_stocks
 
 
 
@@ -260,12 +266,6 @@ with col4:
     st.plotly_chart(unit_stock_price_distribution4(filtered_stc))
 
 
-selected_cat_stc = st.selectbox('categories', categories_stc)
-
-if selected_cat_stc != 'All categories':
-    filtered_stc = df_stocks[df_stocks['Category'] == selected_cat_stc] 
-else:
-    filtered_stc = df_stocks
     
 st.plotly_chart(unit_order_price_distribution(filtered_ord))
 col1, col2, col3, col4 = st.columns((5, 5, 5, 5))
