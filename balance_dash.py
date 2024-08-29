@@ -48,10 +48,10 @@ with open('style.css') as f:
 df_stocks = pd.read_csv('Stocks.csv')
 df_orders = pd.read_csv('Orders.csv')
 
-categories_ord = 'All categories' + df_orders['Category'].unique()
-categories_stc = 'All categories' + df_stocks['Category'].unique()
+categories_ord = 'All categories' + df_orders['Category'].unique().tolist()
+categories_stc = 'All categories' + df_stocks['Category'].unique().tolist()
 
-selected_cat_ord = st.selectbox(categories_ord)
+selected_cat_ord = st.selectbox('categories', categories_ord)
 
 if selected_cat_ord != 'All categories': 
     filtered_ord = df_orders[df_orders['Category'] == selected_Cat_ord]
@@ -152,7 +152,7 @@ def unit_stock_price_distribution4(df):
 
 
 
-selected_cat_stc = st.selectbox(categories_stc)
+selected_cat_stc = st.selectbox('categories', categories_stc)
 
 if selected_cat_stc != 'All categories':
     filtered_stc = df_stocks[df_stocks['Category'] == selected_cat_stc] 
