@@ -48,8 +48,8 @@ with open('style.css') as f:
 df_stocks = pd.read_csv('Stocks.csv')
 df_orders = pd.read_csv('Orders.csv')
 
-categories_ord = 'All categories' + df_orders['Category'].unique().tolist()
-categories_stc = 'All categories' + df_stocks['Category'].unique().tolist()
+categories_ord = ['All categories'] + df_orders['Category'].unique().tolist()
+categories_stc = ['All categories'] + df_stocks['Category'].unique().tolist()
 
 selected_cat_ord = st.selectbox('categories', categories_ord)
 
