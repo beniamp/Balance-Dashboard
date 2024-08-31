@@ -95,7 +95,7 @@ st.write(f'Current period range:{start_date_persian} to {end_date_persian}')
 
 
 
-if selected_cat_ord != 'All categories': 
+if selected_category != 'All categories': 
     filtered_ord = df_orders[df_orders['Category'] == selected_cat_ord]
     filtered_stc = df_stocks[df_stocks['category'] == selected_cat_ord]
 else:
