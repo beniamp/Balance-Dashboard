@@ -153,7 +153,7 @@ price_ranges = df_joined['PriceRange'].unique().sort_values()
 
 start_range = st.selectbox('Starter', price_ranges)
 ending_range = st.selectbox('Ending', price_ranges, index=len(price_ranges) - 1)
-df_joined = df_joined[(df_joined['PriceRange'] >= start_range) & (df_joined['PriceRange'] <= ending_range)]
+df_joined = df_joined[(df_joined['PriceRangeS'] >= start_range) & (df_joined['PriceRange'] <= ending_range)]
 
 
 
