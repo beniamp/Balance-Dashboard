@@ -140,8 +140,8 @@ bin_edges = [min_price + i * (max_price - min_price) / 100 for i in range(101)]
 bin_labels = [f'{int(bin_edges[i]):,}-{int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
 
 
-df_joined['PriceRange'] = pd.cut(test_join['BasePriceOrder'], bins=bin_edges, labels=bin_labels, include_lowest=True)
-df_joined['PriceRangeS'] = pd.cut(test_join['BasePriceStock'], bins=bin_edges, labels=bin_labels, include_lowest=True)
+df_joined['PriceRange'] = pd.cut(df_joined['BasePriceOrder'], bins=bin_edges, labels=bin_labels, include_lowest=True)
+df_joined['PriceRangeS'] = pd.cut(df_joined['BasePriceStock'], bins=bin_edges, labels=bin_labels, include_lowest=True)
 price_range_distributionO = df_joined.groupby('PriceRange').agg({'Volume': 'sum'}).reset_index()
 price_range_distributionS = df_joined.groupby('PriceRangeS').agg({'Availability': 'max'}).reset_index()
 
