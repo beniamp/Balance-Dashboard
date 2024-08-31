@@ -94,6 +94,7 @@ end_date_persian = gregorian_to_persian(end_date)
 st.write(f'Current period range:{start_date_persian} to {end_date_persian}')
 
 
+
 if selected_cat_ord != 'All categories': 
     filtered_ord = df_orders[df_orders['Category'] == selected_cat_ord]
     filtered_stc = df_stocks[df_stocks['category'] == selected_cat_ord]
@@ -102,195 +103,66 @@ else:
     filtered_stc = df_stocks
 
 
+filtered_ord = filtered_ord[(filtered_ord['Gregorian_Date'] >= start_date) & (filtered_ord['Gregorian_Date'] <= end_date)]
 
 
-def unit_stock_price_distribution(df):
-    # Define price bins with a more scalable approach
-    min_price = 0
-    max_price = 200000000
-    # Define bin edges; these values can be adjusted as needed
-    bin_edges = [min_price + i*(max_price-min_price)/80 for i in range(81)]
-    bin_labels = [f'{int(bin_edges[i]):,}-{int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
-    # Assign bin labels to each price
-    df['PriceRange'] = pd.cut(df['BasePrice'], bins=bin_edges, labels=bin_labels, include_lowest=True)
-    # Aggregate quantity sold within each price range
-    price_range_distribution = df.groupby('PriceRange').sum()[['Quantity']].reset_index()
-    # Create bar chart
-    fig = px.bar(price_range_distribution, x='PriceRange', y='Quantity', title='Distribution of Stocks Unit Prices and Quantity Sold',
-                 color_discrete_sequence=['gold'])
-    
-    return fig
+agg_orders = filtered_ord.groupby(['ProductNameColor', 'Date_Formatted', 'Gregorian_Date', 'Category']).agg({'Quantity': 'sum', 'UnitBasePrice': 'sum'}).reset_index()
+agg_stocks = filtered_stc.groupby(['ProductColorName', 'Category', 'Brand']).agg({'Quantity': 'sum', 'BasePrice': 'max'}).reset_index()
+df_joined = pd.merge(agg_orders, agg_stocks, right_on='ProductColorName', left_on='ProductNameColor', how='outer')
 
-def unit_stock_price_distribution1(df):
-    # Define price bins with a more scalable approach
-    min_price = 0
-    max_price = 5000000
-    # Define bin edges; these values can be adjusted as needed
-    bin_edges = [min_price + i*(max_price-min_price)/40 for i in range(81)]
-    bin_labels = [f'{int(bin_edges[i]):,}-{int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
-    # Assign bin labels to each price
-    df['PriceRange'] = pd.cut(df['BasePrice'], bins=bin_edges, labels=bin_labels, include_lowest=True)
-    # Aggregate quantity sold within each price range
-    price_range_distribution = df.groupby('PriceRange').sum()[['Quantity']].reset_index()
-    # Create bar chart
-    fig = px.bar(price_range_distribution, x='PriceRange', y='Quantity',
-                 color_discrete_sequence=['gold'])
-    
-    return fig
+df_joined['ProductNameColor'] = df_joined['ProductNameColor'].fillna(df_joined['ProductColorName'])
+df_joined['Category_x'] = df_joined['Category_x'].fillna(df_joined['Category_y']) 
+df_joined['Quantity_x'] = df_joined['Quantity_x'].fillna(0)
+df_joined['UnitBasePrice'] = df_joined['UnitBasePrice'].fillna(df_joined['BasePrice'])
 
-def unit_stock_price_distribution2(df):
-    # Define price bins with a more scalable approach
-    min_price = 5000000
-    max_price = 25000000
-    # Define bin edges; these values can be adjusted as needed
-    bin_edges = [min_price + i*(max_price-min_price)/40 for i in range(81)]
-    bin_labels = [f'{int(bin_edges[i]):,}-{int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
-    # Assign bin labels to each price
-    df['PriceRange'] = pd.cut(df['BasePrice'], bins=bin_edges, labels=bin_labels, include_lowest=True)
-    # Aggregate quantity sold within each price range
-    price_range_distribution = df.groupby('PriceRange').sum()[['Quantity']].reset_index()
-    # Create bar chart
-    fig = px.bar(price_range_distribution, x='PriceRange', y='Quantity',
-                 color_discrete_sequence=['gold'])
-    
-    return fig
+df_joined['ProductColorName'] = df_joined['ProductColorName'].fillna(df_joined['ProductNameColor'])
+df_joined['Category_y'] = df_joined['Category_y'].fillna(df_joined['Category_x'])
+df_joined['Brand'] = df_joined['Brand'].fillna('نامشخص')
+df_joined['BasePrice'] = df_joined['BasePrice'].fillna(df_joined['UnitBasePrice'])
+
+df_joined = df_joined.rename(columns={'ProductNameColor': 'ProductO', 'ProductColorName': 'ProductS',
+                          'UnitBasePrice': 'BasePriceOrder', 'BasePrice': 'BasePriceStock',
+                          'Quantity_x': 'Volume', 'Quantity_y': 'Availability',
+                          'Category_x': 'CategoryO', 'Category_y': 'categoryS'})
 
 
-def unit_stock_price_distribution3(df):
-    # Define price bins with a more scalable approach
-    min_price = 25000000
-    max_price = 80000000
-    # Define bin edges; these values can be adjusted as needed
-    bin_edges = [min_price + i*(max_price-min_price)/40 for i in range(81)]
-    bin_labels = [f'{int(bin_edges[i]):,}-{int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
-    # Assign bin labels to each price
-    df['PriceRange'] = pd.cut(df['BasePrice'], bins=bin_edges, labels=bin_labels, include_lowest=True)
-    # Aggregate quantity sold within each price range
-    price_range_distribution = df.groupby('PriceRange').sum()[['Quantity']].reset_index()
-    # Create bar chart
-    fig = px.bar(price_range_distribution, x='PriceRange', y='Quantity',
-                 color_discrete_sequence=['gold'])
-    
-    return fig
-
-def unit_stock_price_distribution4(df):
-    # Define price bins with a more scalable approach
-    min_price = 80000000
-    max_price = 200000000
-    # Define bin edges; these values can be adjusted as needed
-    bin_edges = [min_price + i*(max_price-min_price)/40 for i in range(81)]
-    bin_labels = [f'{int(bin_edges[i]):,}-{int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
-    # Assign bin labels to each price
-    df['PriceRange'] = pd.cut(df['BasePrice'], bins=bin_edges, labels=bin_labels, include_lowest=True)
-    # Aggregate quantity sold within each price range
-    price_range_distribution = df.groupby('PriceRange').sum()[['Quantity']].reset_index()
-    # Create bar chart
-    fig = px.bar(price_range_distribution, x='PriceRange', y='Quantity',
-                 color_discrete_sequence=['gold'])
-    
-    return fig
+df_joined['BasePriceOrder'] = df_joined['BasePriceOrder'].fillna(0)
+df_joined['BasePriceStock'] = df_joined['BasePriceStock'].fillna(0)
 
 
+min_price = df_joined['BasePriceOrder'].min()
+max_price = df_joined['BasePriceOrder'].max()
+print(min_price, max_price)  # Ensure both are float
 
 
+# Define bin edges
+bin_edges = [min_price + i * (max_price - min_price) / 100 for i in range(101)]
+bin_labels = [f'{int(bin_edges[i]):,}-{int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
 
 
-def unit_order_price_distribution(df):
-    # Define price bins with a more scalable approach
-    min_price = 0
-    max_price = 200000000
-    # Define bin edges; these values can be adjusted as needed
-    bin_edges = [min_price + i*(max_price-min_price)/80 for i in range(81)]
-    bin_labels = [f'{int(bin_edges[i]):,}-{int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
-    # Assign bin labels to each price
-    df['PriceRange'] = pd.cut(df['UnitBasePrice'], bins=bin_edges, labels=bin_labels, include_lowest=True)
-    # Aggregate quantity sold within each price range
-    price_range_distribution = df.groupby('PriceRange').sum()[['Quantity']].reset_index()
-    # Create bar chart
-    fig = px.bar(price_range_distribution, x='PriceRange', y='Quantity', title= 'Distribution of Orders Unit Prices and Quantity Sold',
-                 color_discrete_sequence=['silver'])
-    
-    return fig
+# Create bar chart
+fig1 = px.bar(price_range_distribution, x='PriceRange', y='Volume',
+             title='Distribution of Price Ranges Over Volume',
+             labels={'PriceRange': 'Price Range', 'Volume': 'Total Volume'},
+             color='Volume', color_continuous_scale='viridis')
 
-def unit_order_price_distribution1(df):
-    # Define price bins with a more scalable approach
-    min_price = 0
-    max_price = 5000000
-    # Define bin edges; these values can be adjusted as needed
-    bin_edges = [min_price + i*(max_price-min_price)/40 for i in range(81)]
-    bin_labels = [f'{int(bin_edges[i]):,}-{int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
-    # Assign bin labels to each price
-    df['PriceRange'] = pd.cut(df['UnitBasePrice'], bins=bin_edges, labels=bin_labels, include_lowest=True)
-    # Aggregate quantity sold within each price range
-    price_range_distribution = df.groupby('PriceRange').sum()[['Quantity']].reset_index()
-    # Create bar chart
-    fig = px.bar(price_range_distribution, x='PriceRange', y='Quantity',
-                 color_discrete_sequence=['silver'])
-    
-    return fig
+# Show the figure
+fig1.show()
 
+# Create bar chart
+fig2 = px.bar(price_range_distributionS, x='PriceRangeS', y='Availability',
+             title='Distribution of Price Ranges Over Volume',
+             labels={'PriceRange': 'Price Range', 'Availability': 'Total Volume'},
+             color='Availability', color_continuous_scale='magma')
 
-def unit_order_price_distribution2(df):
-    # Define price bins with a more scalable approach
-    min_price = 5000000
-    max_price = 25000000
-    # Define bin edges; these values can be adjusted as needed
-    bin_edges = [min_price + i*(max_price-min_price)/40 for i in range(81)]
-    bin_labels = [f'{int(bin_edges[i]):,}-{int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
-    # Assign bin labels to each price
-    df['PriceRange'] = pd.cut(df['UnitBasePrice'], bins=bin_edges, labels=bin_labels, include_lowest=True)
-    # Aggregate quantity sold within each price range
-    price_range_distribution = df.groupby('PriceRange').sum()[['Quantity']].reset_index()
-    # Create bar chart
-    fig = px.bar(price_range_distribution, x='PriceRange', y='Quantity',
-                 color_discrete_sequence=['silver'])
-    
-    return fig
-
-
-def unit_order_price_distribution3(df):
-    # Define price bins with a more scalable approach
-    min_price = 25000000
-    max_price = 80000000
-    # Define bin edges; these values can be adjusted as needed
-    bin_edges = [min_price + i*(max_price-min_price)/40 for i in range(81)]
-    bin_labels = [f'{int(bin_edges[i]):,}-{int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
-    # Assign bin labels to each price
-    df['PriceRange'] = pd.cut(df['UnitBasePrice'], bins=bin_edges, labels=bin_labels, include_lowest=True)
-    # Aggregate quantity sold within each price range
-    price_range_distribution = df.groupby('PriceRange').sum()[['Quantity']].reset_index()
-    # Create bar chart
-    fig = px.bar(price_range_distribution, x='PriceRange', y='Quantity',
-                 color_discrete_sequence=['silver'])
-    
-    return fig
-
-def unit_order_price_distribution4(df):
-    # Define price bins with a more scalable approach
-    min_price = 80000000
-    max_price = 200000000
-    # Define bin edges; these values can be adjusted as needed
-    bin_edges = [min_price + i*(max_price-min_price)/40 for i in range(81)]
-    bin_labels = [f'{int(bin_edges[i]):,}-{int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
-    # Assign bin labels to each price
-    df['PriceRange'] = pd.cut(df['UnitBasePrice'], bins=bin_edges, labels=bin_labels, include_lowest=True)
-    # Aggregate quantity sold within each price range
-    price_range_distribution = df.groupby('PriceRange').sum()[['Quantity']].reset_index()
-    # Create bar chart
-    fig = px.bar(price_range_distribution, x='PriceRange', y='Quantity',
-                 color_discrete_sequence=['silver'])
-    
-    return fig
-
-
-
-
+# Show the figure
+fig2.show()
 
 
     
-st.plotly_chart(unit_order_price_distribution(filtered_ord))
+st.plotly_chart(fig1)
 
-st.plotly_chart(unit_stock_price_distribution(filtered_stc))
+st.plotly_chart(fig2)
 
 
 
