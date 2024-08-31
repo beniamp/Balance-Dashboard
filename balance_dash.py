@@ -140,6 +140,11 @@ bin_edges = [min_price + i * (max_price - min_price) / 100 for i in range(101)]
 bin_labels = [f'{int(bin_edges[i]):,}-{int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
 
 
+test_join['PriceRange'] = pd.cut(test_join['BasePriceOrder'], bins=bin_edges, labels=bin_labels, include_lowest=True)
+test_join['PriceRangeS'] = pd.cut(test_join['BasePriceStock'], bins=bin_edges, labels=bin_labels, include_lowest=True)
+price_range_distributionO = test_join.groupby('PriceRange').agg({'Volume': 'sum'}).reset_index()
+price_range_distributionS = test_join.groupby('PriceRangeS').agg({'Availability': 'max'}).reset_index()
+
 # Create bar chart
 fig1 = px.bar(price_range_distribution, x='PriceRange', y='Volume',
              title='Distribution of Price Ranges Over Volume',
