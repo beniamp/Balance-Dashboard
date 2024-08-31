@@ -174,7 +174,7 @@ fig1.show()
 # Create bar chart
 fig2 = px.bar(price_range_distributionS, x='PriceRangeS', y='Availability',
              title='Distribution of Price Ranges Over Stock Availability',
-             labels={'PriceRange': 'Price Range', 'Availability': 'Total Volume'},
+             labels={'PriceRange': 'Price Range', 'Availability': 'Total Availability'},
              color='Availability', color_continuous_scale='viridis')
 
 # Show the figure
@@ -190,6 +190,7 @@ st.plotly_chart(fig2)
 price_ranges = df_joined['PriceRange'].unique().sort_values()
 price_range_table = st.selectbox('Select According Price Range', price_ranges)
 df_joined = df_joined[df_joined['PriceRange'] == price_range_table]
+df_joined = df_joined[['ProductO','CategoryO', 'Brand', 'Volume', 'Availability', 'PriceRange']]
 st.dataframe(df_joined)
 
 
