@@ -158,7 +158,7 @@ fig1.show()
 fig2 = px.bar(price_range_distributionS, x='PriceRangeS', y='Availability',
              title='Distribution of Price Ranges Over Volume',
              labels={'PriceRange': 'Price Range', 'Availability': 'Total Volume'},
-             color='Availability', color_continuous_scale='magma')
+             color='Availability', color_continuous_scale='viridis')
 
 # Show the figure
 fig2.show()
