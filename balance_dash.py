@@ -192,10 +192,9 @@ price_range_table = st.selectbox('Select According Price Range', price_ranges)
 df_joined = df_joined[df_joined['PriceRange'] == price_range_table]
 df_joined['Availability'] = df_joined['Availability'].fillna(0)
 df_joined = df_joined[['ProductO','Date_Formatted', 'CategoryO', 'Brand', 'Volume', 'Availability', 'PriceRange']].reset_index(drop=True)
-grouped= df_joined.groupby(['ProductO']).agg({'Volume': 'sum', 'Availability': 'max'})
 
 
-st.dataframe(grouped)
+st.dataframe(df_joined)
 
 
 
