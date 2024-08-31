@@ -146,7 +146,7 @@ price_range_distributionO = df_joined.groupby('PriceRange').agg({'Volume': 'sum'
 price_range_distributionS = df_joined.groupby('PriceRangeS').agg({'Availability': 'max'}).reset_index()
 
 # Create bar chart
-fig1 = px.bar(price_range_distribution, x='PriceRange', y='Volume',
+fig1 = px.bar(price_range_distributionO, x='PriceRange', y='Volume',
              title='Distribution of Price Ranges Over Volume',
              labels={'PriceRange': 'Price Range', 'Volume': 'Total Volume'},
              color='Volume', color_continuous_scale='viridis')
