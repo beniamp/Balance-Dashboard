@@ -185,6 +185,9 @@ st.plotly_chart(fig1)
 
 st.plotly_chart(fig2)
 
+
+price_range_table = st.selectbox('Select According Price Range', price_ranges)
+df_joined = df_joined[df_joined['PriceRange'] == price_range_table]
 st.dataframe(df_joined)
 
 
