@@ -190,7 +190,7 @@ st.plotly_chart(fig2)
 price_ranges = df_joined['PriceRange'].unique().sort_values()
 price_range_table = st.selectbox('Select According Price Range', price_ranges)
 df_joined = df_joined[df_joined['PriceRange'] == price_range_table]
-grouped_df = df_joined.groupby(['ProductO', 'CategoryO', 'Brand', 'PriceRange']).agg({'Volume': 'sum', 'Availability': 'max'})
+grouped_df = df_joined.groupby(['ProductO', 'PriceRange']).agg({'Volume': 'sum', 'Availability': 'max'})
 
 st.dataframe(grouped_df)
 
