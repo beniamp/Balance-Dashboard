@@ -185,6 +185,7 @@ st.plotly_chart(fig1)
 
 st.plotly_chart(fig2)
 
+st.dataframe(df_joined)
 
 
 
