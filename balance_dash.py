@@ -60,7 +60,7 @@ def persian_to_gregorian(date):
   gre_date = persian_date.togregorian()
   return gre_date
 
-df['Gregorian_Date'] = df_orders['Date_Formatted'].apply(persian_to_gregorian)
+df_orders['Gregorian_Date'] = df_orders['Date_Formatted'].apply(persian_to_gregorian)
 
 
 
