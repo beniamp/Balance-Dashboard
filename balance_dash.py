@@ -106,6 +106,11 @@ else:
 filtered_ord = filtered_ord[(filtered_ord['Gregorian_Date'] >= start_date) & (filtered_ord['Gregorian_Date'] <= end_date)]
 
 
+idx = st.slider(
+    "Select Division Number",
+    min_value=0,
+    max_value=200)
+
 agg_orders = filtered_ord.groupby(['ProductNameColor', 'Date_Formatted', 'Gregorian_Date', 'Category']).agg({'Quantity': 'sum', 'UnitBasePrice': 'sum'}).reset_index()
 agg_stocks = filtered_stc.groupby(['ProductColorName', 'Category', 'Brand']).agg({'Quantity': 'sum', 'BasePrice': 'max'}).reset_index()
 df_joined = pd.merge(agg_orders, agg_stocks, right_on='ProductColorName', left_on='ProductNameColor', how='outer')
@@ -136,7 +141,7 @@ print(min_price, max_price)  # Ensure both are float
 
 
 # Define bin edges
-bin_edges = [min_price + i * (max_price - min_price) / 100 for i in range(101)]
+bin_edges = [min_price + i * (max_price - min_price) / idx for i in range(idx + 1)]
 bin_labels = [f'{int(bin_edges[i]):,}-{int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
 
 
