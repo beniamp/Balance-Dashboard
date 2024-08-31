@@ -113,7 +113,7 @@ idx = st.slider(
     value=100)
 
 agg_orders = filtered_ord.groupby(['ProductNameColor', 'Date_Formatted', 'Gregorian_Date', 'Category']).agg({'Quantity': 'sum', 'UnitBasePrice': 'sum'}).reset_index()
-agg_stocks = filtered_stc.groupby(['ProductColorName', 'Category', 'Brand']).agg({'Quantity': 'sum', 'BasePrice': 'max'}).reset_index()
+agg_stocks = filtered_stc.groupby(['ProductColorName', 'Category', 'Brand']).agg({'Quantity': 'sum', 'BasePrice': 'sum'}).reset_index()
 df_joined = pd.merge(agg_orders, agg_stocks, right_on='ProductColorName', left_on='ProductNameColor', how='outer')
 
 df_joined['ProductNameColor'] = df_joined['ProductNameColor'].fillna(df_joined['ProductColorName'])
