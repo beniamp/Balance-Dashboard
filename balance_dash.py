@@ -109,7 +109,8 @@ filtered_ord = filtered_ord[(filtered_ord['Gregorian_Date'] >= start_date) & (fi
 idx = st.slider(
     "Select Division Number",
     min_value=0,
-    max_value=200)
+    max_value=200,
+    value=100)
 
 agg_orders = filtered_ord.groupby(['ProductNameColor', 'Date_Formatted', 'Gregorian_Date', 'Category']).agg({'Quantity': 'sum', 'UnitBasePrice': 'sum'}).reset_index()
 agg_stocks = filtered_stc.groupby(['ProductColorName', 'Category', 'Brand']).agg({'Quantity': 'sum', 'BasePrice': 'max'}).reset_index()
