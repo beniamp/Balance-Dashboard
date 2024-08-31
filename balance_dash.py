@@ -163,7 +163,7 @@ price_ranges = df_joined['PriceRange'].unique()
 
 # Create bar chart
 fig1 = px.bar(price_range_distributionO, x='PriceRange', y='Volume',
-             title='Distribution of Price Ranges Over Volume',
+             title='Distribution of Price Ranges Over Ordered Volume',
              labels={'PriceRange': 'Price Range', 'Volume': 'Total Volume'},
              color='Volume', color_continuous_scale='viridis')
 
@@ -172,7 +172,7 @@ fig1.show()
 
 # Create bar chart
 fig2 = px.bar(price_range_distributionS, x='PriceRangeS', y='Availability',
-             title='Distribution of Price Ranges Over Volume',
+             title='Distribution of Price Ranges Over Stock Availability',
              labels={'PriceRange': 'Price Range', 'Availability': 'Total Volume'},
              color='Availability', color_continuous_scale='viridis')
 
