@@ -81,6 +81,16 @@ start_date, end_date = b1.date_input(
 )
 selected_category = b2.selectbox('Select Category', categories_ord)
 
+def gregorian_to_persian(gregorian_date):
+    persian_date = persian.from_gregorian(gregorian_date.year, gregorian_date.month, gregorian_date.day)
+    return f'{persian_date[0]:04}-{persian_date[1]:02}-{persian_date[2]:02}'
+
+# Convert the selected Gregorian dates back to Persian format
+start_date_persian = gregorian_to_persian(start_date)
+end_date_persian = gregorian_to_persian(end_date)
+
+st.write(f'Current period range:{start_date_persian} to {end_date_persian}')
+
 
 if selected_cat_ord != 'All categories': 
     filtered_ord = df_orders[df_orders['Category'] == selected_cat_ord]
