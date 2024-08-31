@@ -67,15 +67,6 @@ df_orders['Gregorian_Date'] = df_orders['Date_Formatted'].apply(persian_to_grego
 categories_ord = ['All categories'] + df_orders['Category'].unique().tolist()
 categories_stc = ['All categories'] + df_stocks['Category'].unique().tolist()
 
-
-
-if selected_cat_ord != 'All categories': 
-    filtered_ord = df_orders[df_orders['Category'] == selected_cat_ord]
-    filtered_stc = df_stocks[df_stocks['category'] == selected_cat_ord]
-else:
-    filtered_ord = df_orders 
-    filtered_stc = df_stocks
-
 sorted_dates_gregorian = df_orders['Gregorian_Date'].unique()
 sorted_dates_gregorian = sorted(sorted_dates_gregorian)
 
@@ -89,6 +80,16 @@ start_date, end_date = b1.date_input(
     max_value=sorted_dates_gregorian[-1]
 )
 selected_category = b2.selectbox('Select Category', categories_ord)
+
+
+if selected_cat_ord != 'All categories': 
+    filtered_ord = df_orders[df_orders['Category'] == selected_cat_ord]
+    filtered_stc = df_stocks[df_stocks['category'] == selected_cat_ord]
+else:
+    filtered_ord = df_orders 
+    filtered_stc = df_stocks
+
+
 
 
 def unit_stock_price_distribution(df):
