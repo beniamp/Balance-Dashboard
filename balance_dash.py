@@ -152,6 +152,9 @@ price_ranges = df_joined['PriceRange'].unique().sort_values()
 
 start_range = st.selectbox('Starter', price_ranges)
 ending_range = st.selectbox('Ending', price_ranges)
+df_joined = df_joined[(df_joined['PriceRange'] >= start_range) & (df_joined['PriceRange'] <= ending_range)]
+
+
 
 price_range_distributionO = df_joined.groupby('PriceRange').agg({'Volume': 'sum'}).reset_index()
 price_range_distributionS = df_joined.groupby('PriceRangeS').agg({'Availability': 'max'}).reset_index()
