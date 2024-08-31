@@ -136,8 +136,8 @@ df_joined['BasePriceOrder'] = df_joined['BasePriceOrder'].fillna(0)
 df_joined['BasePriceStock'] = df_joined['BasePriceStock'].fillna(0)
 
 
-min_price = df_joined['BasePriceOrder'].min()
-max_price = df_joined['BasePriceOrder'].max()
+min_price = df_joined['BasePriceStock'].min()
+max_price = df_joined['BasePriceStock'].max()
 print(min_price, max_price)  # Ensure both are float
 
 
@@ -146,7 +146,7 @@ bin_edges = [min_price + i * (max_price - min_price) / idx for i in range(idx + 
 bin_labels = [f'{int(bin_edges[i]):,}-{int(bin_edges[i+1]):,}' for i in range(len(bin_edges)-1)]
 
 
-df_joined['PriceRange'] = pd.cut(df_joined['BasePriceOrder'], bins=bin_edges, labels=bin_labels, include_lowest=True)
+#df_joined['PriceRange'] = pd.cut(df_joined['BasePriceOrder'], bins=bin_edges, labels=bin_labels, include_lowest=True)
 df_joined['PriceRangeS'] = pd.cut(df_joined['BasePriceStock'], bins=bin_edges, labels=bin_labels, include_lowest=True)
 
 price_ranges = df_joined['PriceRange'].unique().sort_values()
@@ -157,13 +157,13 @@ df_joined = df_joined[(df_joined['PriceRange'] >= start_range) & (df_joined['Pri
 
 
 
-price_range_distributionO = df_joined.groupby('PriceRange').agg({'Volume': 'sum'}).reset_index()
+price_range_distributionO = df_joined.groupby('PriceRangeS').agg({'Volume': 'sum'}).reset_index()
 price_range_distributionS = df_joined.groupby('PriceRangeS').agg({'Availability': 'max'}).reset_index()
 
 price_ranges = df_joined['PriceRange'].unique()
 
 # Create bar chart
-fig1 = px.bar(price_range_distributionO, x='PriceRange', y='Volume',
+fig1 = px.bar(price_range_distributionO, x='PriceRangeS', y='Volume',
              title='Distribution of Price Ranges Over Ordered Volume',
              labels={'PriceRange': 'Price Range', 'Volume': 'Total Volume'},
              color='Volume', color_continuous_scale='viridis')
