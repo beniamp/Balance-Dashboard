@@ -160,7 +160,7 @@ df_joined = df_joined[(df_joined['PriceRangeS'] >= start_range) & (df_joined['Pr
 price_range_distributionO = df_joined.groupby('PriceRangeS').agg({'Volume': 'sum'}).reset_index()
 price_range_distributionS = df_joined.groupby('PriceRangeS').agg({'Availability': 'max'}).reset_index()
 
-price_ranges = df_joined['PriceRange'].unique()
+price_ranges = df_joined['PriceRangeS'].unique()
 
 # Create bar chart
 fig1 = px.bar(price_range_distributionO, x='PriceRangeS', y='Volume',
