@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-
+import jdatetime
 
 
 # Defining the Component of Connection String
@@ -48,26 +48,47 @@ with open('style.css') as f:
 df_stocks = pd.read_csv('Stocks.csv')
 df_orders = pd.read_csv('Orders.csv')
 
+
+# defining gregorian datetime in order to properly selecting date input 
+def persian_to_gregorian(date):
+  year , month, day = date.split('-')
+  year = int(year)
+  month = int(month)
+  day = int(day)
+
+  persian_date = jdatetime.date(year, month, day)
+  gre_date = persian_date.togregorian()
+  return gre_date
+
+df['Gregorian_Date'] = df_orders['Date_Formatted'].apply(persian_to_gregorian)
+
+
+
 categories_ord = ['All categories'] + df_orders['Category'].unique().tolist()
 categories_stc = ['All categories'] + df_stocks['Category'].unique().tolist()
 
-selected_cat_ord = st.selectbox('categories for order table', categories_ord)
+
 
 if selected_cat_ord != 'All categories': 
     filtered_ord = df_orders[df_orders['Category'] == selected_cat_ord]
+    filtered_stc = df_stocks[df_stocks['category'] == selected_cat_ord]
 else:
     filtered_ord = df_orders 
-
-
-
-
-selected_cat_stc = st.selectbox('categories for stock table', categories_stc)
-
-if selected_cat_stc != 'All categories':
-    filtered_stc = df_stocks[df_stocks['Category'] == selected_cat_stc] 
-else:
     filtered_stc = df_stocks
 
+sorted_dates_gregorian = df_orders['Gregorian_Date'].unique()
+sorted_dates_gregorian = sorted(sorted_dates_gregorian)
+
+
+# Date range selection using calendar widget
+b1, b2 = st.columns(2)
+start_date, end_date = b1.date_input(
+    "Select Date Range",
+    value=[sorted_dates_gregorian[0], sorted_dates_gregorian[-1]],
+    min_value=sorted_dates_gregorian[0],
+    max_value=sorted_dates_gregorian[-1]
+)
+selected_category = b2.selectbox('Select Category', categories_ord)
 
 
 def unit_stock_price_distribution(df):
