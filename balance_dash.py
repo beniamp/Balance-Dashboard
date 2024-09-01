@@ -156,9 +156,10 @@ ending_range = st.selectbox('Ending', price_ranges, index=len(price_ranges) - 1)
 df_joined = df_joined[(df_joined['PriceRangeS'] >= start_range) & (df_joined['PriceRangeS'] <= ending_range)]
 
 
+df_joined['PriceRangeS'] = pd.cut(df_joined['BasePriceStock'], bins=bin_edges, labels=bin_labels, include_lowest=True)
 
+price_range_distributionS = df_joined.groupby('PriceRangeS').agg({'Availability': 'max'}).reset_index()
 price_range_distributionO = df_joined.groupby('PriceRangeS').agg({'Volume': 'sum'}).reset_index()
-price_range_distributionS = df_joined.groupby('PriceRangeS').agg({'Availability': 'sum'}).reset_index()
 
 price_ranges = df_joined['PriceRangeS'].unique()
 
@@ -171,8 +172,11 @@ fig1 = px.bar(price_range_distributionO, x='PriceRangeS', y='Volume',
 # Show the figure
 fig1.show()
 
+st = test_join.groupby(['ProductS']).agg({'PriceRangeS': 'max', 'Availability': 'max'}).reset_index().sort_values(by='PriceRangeS', ascending=False)
+st_grouped = st.groupby('PriceRangeS', as_index=False)['Availability'].sum()
+
 # Create bar chart
-fig2 = px.bar(price_range_distributionS, x='PriceRangeS', y='Availability',
+fig2 = px.bar(st_grouped, x='PriceRangeS', y='Availability',
              title='Distribution of Price Ranges Over Stock Availability',
              labels={'PriceRange': 'Price Range', 'Availability': 'Total Availability'},
              color='Availability', color_continuous_scale='viridis')
