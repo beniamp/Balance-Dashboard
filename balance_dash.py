@@ -183,6 +183,7 @@ fig2 = px.bar(st_grouped, x='PriceRangeS', y='Availability',
 
 fig2.show()
 
+st.plotly_chart(fig2)
 
 
 
