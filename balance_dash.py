@@ -172,7 +172,7 @@ fig1 = px.bar(price_range_distributionO, x='PriceRangeS', y='Volume',
 # Show the figure
 fig1.show()
 
-st = test_join.groupby(['ProductS']).agg({'PriceRangeS': 'max', 'Availability': 'max'}).reset_index().sort_values(by='PriceRangeS', ascending=False)
+st = df_joined.groupby(['ProductS']).agg({'PriceRangeS': 'max', 'Availability': 'max'}).reset_index().sort_values(by='PriceRangeS', ascending=False)
 st_grouped = st.groupby('PriceRangeS', as_index=False)['Availability'].sum()
 
 # Create bar chart
