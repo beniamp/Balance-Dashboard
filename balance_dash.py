@@ -186,15 +186,6 @@ fig2.show()
 
 
 
-price_ranges = df_joined['PriceRangeS'].unique().sort_values()
-price_range_table = st.selectbox('Select According Price Range', price_ranges)
-df_joined = df_joined[df_joined['PriceRangeS'] == price_range_table]
-df_joined['Availability'] = df_joined['Availability'].fillna(0)
-df_joined = df_joined[['ProductO','Date_Formatted', 'CategoryO', 'Brand', 'Volume', 'Availability', 'PriceRangeS']].reset_index(drop=True)
-grouped = df_joined.groupby('ProductO').agg({'Volume': 'sum', 'Availability': 'max'}).reset_index()
-
-st.dataframe(grouped)
-
 
 
 
