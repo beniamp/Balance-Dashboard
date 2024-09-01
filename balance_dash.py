@@ -169,6 +169,7 @@ fig1 = px.bar(price_range_distributionO, x='PriceRangeS', y='Volume',
              labels={'PriceRange': 'Price Range', 'Volume': 'Total Volume'},
              color='Volume', color_continuous_scale='viridis')
 
+fig1.show()
 
 st = df_joined.groupby(['ProductS']).agg({'PriceRangeS': 'max', 'Availability': 'max'}).reset_index().sort_values(by='PriceRangeS', ascending=False)
 st_grouped = st.groupby('PriceRangeS', as_index=False)['Availability'].sum()
@@ -179,12 +180,10 @@ fig2 = px.bar(st_grouped, x='PriceRangeS', y='Availability',
              labels={'PriceRange': 'Price Range', 'Availability': 'Total Availability'},
              color='Availability', color_continuous_scale='viridis')
 
+fig2.show()
 
 
-    
-st.plotly_chart(fig1)
 
-st.plotly_chart(fig2)
 
 
 price_ranges = df_joined['PriceRangeS'].unique().sort_values()
