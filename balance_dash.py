@@ -182,8 +182,8 @@ fig2 = px.bar(st_grouped, x='PriceRangeS', y='Availability',
              color='Availability', color_continuous_scale='viridis')
 
 
+fig2.show()
 st.plotly_chart(fig2)
-#fig2.show()
 #t.plotly_chart(fig2)
 
 
