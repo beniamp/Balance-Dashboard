@@ -190,11 +190,16 @@ fig2 = px.bar(stc_grouped, x='PriceRangeS', y='Availability',
 fig3 = px.bar(df_grouped, 
               x='PriceRangeS', 
               y='Availability', 
-              color = 'ProductS',# Color by product to create a stacked bar chart
+              color='ProductS',  # Color by product to create a stacked bar chart
               title='Distribution of Price Ranges Over Stock Availability',
-              labels={'PriceRangeS': 'Price Range', 'Availability': 'Total Availability'})  # Use Plotly's color scheme
+              labels={'PriceRangeS': 'Price Range', 'Availability': 'Total Availability'})
 
-fig2.show()
+# Remove the legend
+fig3.update_layout(showlegend=False)
+
+# Display the chart using Streamlit
+
+
 
 fig1.show()
 st.plotly_chart(fig1)
