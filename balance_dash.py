@@ -189,7 +189,8 @@ fig2 = px.bar(stc_grouped, x='PriceRangeS', y='Availability',
 
 fig3 = px.bar(df_grouped, 
               x='PriceRangeS', 
-              y='Availability',   # Color by product to create a stacked bar chart
+              y='Availability', 
+              color = 'ProductS'# Color by product to create a stacked bar chart
               title='Distribution of Price Ranges Over Stock Availability',
               labels={'PriceRangeS': 'Price Range', 'Availability': 'Total Availability'})  # Use Plotly's color scheme
 
