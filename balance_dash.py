@@ -136,8 +136,8 @@ df_joined['BasePriceOrder'] = df_joined['BasePriceOrder'].fillna(0)
 df_joined['BasePriceStock'] = df_joined['BasePriceStock'].fillna(0)
 
 
-min_price = df_joined['BasePriceStock'].min()
-max_price = df_joined['BasePriceStock'].max()
+min_price = 0
+max_price = 200000000
 print(min_price, max_price)  # Ensure both are float
 
 
