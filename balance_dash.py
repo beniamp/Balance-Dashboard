@@ -186,7 +186,7 @@ fig2 = px.bar(stc_grouped, x='PriceRangeS', y='Availability',
              labels={'PriceRange': 'Price Range', 'Availability': 'Total Availability'},
              color='Availability', color_continuous_scale='viridis')
 
-select_range = st.selectbox('Select Price Range', price_ranges)
+
 
 fig1.show()
 st.plotly_chart(fig1)
@@ -194,6 +194,9 @@ st.plotly_chart(fig1)
 fig2.show()
 st.plotly_chart(fig2)
 
+
+select_range = st.selectbox('Select Price Range', price_ranges)
+test = test[test['PriceRangeS'] == select_range]
 st.dataframe(test)
 #t.plotly_chart(fig2)
 
