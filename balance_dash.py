@@ -167,6 +167,7 @@ price_ranges = df_joined['PriceRangeS'].unique()
 stc = df_joined.groupby(['ProductS']).agg({'PriceRangeS': 'max', 'Availability': 'max'}).reset_index().sort_values(by='PriceRangeS', ascending=False)
 stc_grouped = stc.groupby('PriceRangeS', as_index=False)['Availability'].sum()
 test = df_joined.groupby(['ProductS']).agg({'PriceRangeS': 'max', 'Availability': 'max', 'Volume': 'sum'}).reset_index().sort_values(by='PriceRangeS', ascending=False)
+df_grouped = df_joined.groupby(['PriceRangeS', 'ProductS'], as_index=False)['Availability'].sum()
 
 
 
@@ -187,12 +188,23 @@ fig2 = px.bar(stc_grouped, x='PriceRangeS', y='Availability',
              color='Availability', color_continuous_scale='viridis')
 
 
+fig3 = px.bar(df_grouped, 
+              x='PriceRangeS', 
+              y='Availability', 
+              color='ProductS',  # Color by product to create a stacked bar chart
+              title='Distribution of Price Ranges Over Stock Availability',
+              labels={'PriceRangeS': 'Price Range', 'Availability': 'Total Availability'},
+              color_discrete_sequence=px.colors.qualitative.Plotly)  # Use Plotly's color scheme
+
 
 fig1.show()
 st.plotly_chart(fig1)
 
 fig2.show()
 st.plotly_chart(fig2)
+
+
+st.plotly_chart(fig3)
 
 
 select_range = st.selectbox('Select Price Range', price_ranges)
