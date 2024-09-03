@@ -163,18 +163,19 @@ price_range_distributionO = df_joined.groupby('PriceRangeS').agg({'Volume': 'sum
 
 price_ranges = df_joined['PriceRangeS'].unique()
 
+
+st = df_joined.groupby(['ProductS']).agg({'PriceRangeS': 'max', 'Availability': 'max'}).reset_index().sort_values(by='PriceRangeS', ascending=False)
+st_grouped = st.groupby('PriceRangeS', as_index=False)['Availability'].sum()
+
 # Create bar chart
 fig1 = px.bar(price_range_distributionO, x='PriceRangeS', y='Volume',
              title='Distribution of Price Ranges Over Ordered Volume',
              labels={'PriceRange': 'Price Range', 'Volume': 'Total Volume'},
              color='Volume', color_continuous_scale='viridis')
 
-fig1.show()
-st.plotly_chart(fig1)
-st.write(fig1)
 
-st = df_joined.groupby(['ProductS']).agg({'PriceRangeS': 'max', 'Availability': 'max'}).reset_index().sort_values(by='PriceRangeS', ascending=False)
-st_grouped = st.groupby('PriceRangeS', as_index=False)['Availability'].sum()
+
+
 
 # Create bar chart
 fig2 = px.bar(st_grouped, x='PriceRangeS', y='Availability',
@@ -182,6 +183,8 @@ fig2 = px.bar(st_grouped, x='PriceRangeS', y='Availability',
              labels={'PriceRange': 'Price Range', 'Availability': 'Total Availability'},
              color='Availability', color_continuous_scale='viridis')
 
+fig1.show()
+st.plotly_chart(fig1)
 
 fig2.show()
 st.plotly_chart(fig2)
