@@ -197,7 +197,6 @@ st.plotly_chart(fig2)
 
 select_range = st.selectbox('Select Price Range', price_ranges)
 test = test[test['PriceRangeS'] == select_range].reset_index(drop=True)
-test['Availability'] = test[test['Availability'].fillna(0)]
 st.dataframe(test)
 #t.plotly_chart(fig2)
 
