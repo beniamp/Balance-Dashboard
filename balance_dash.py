@@ -196,7 +196,7 @@ st.plotly_chart(fig2)
 
 
 select_range = st.selectbox('Select Price Range', price_ranges)
-test = test[test['PriceRangeS'] == select_range]
+test = test[test['PriceRangeS'] == select_range].reset_index()
 st.dataframe(test)
 #t.plotly_chart(fig2)
 
