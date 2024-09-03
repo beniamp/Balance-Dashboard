@@ -65,7 +65,7 @@ def persian_to_gregorian(date):
 df_orders['Gregorian_Date'] = df_orders['Date_Formatted'].apply(persian_to_gregorian)
 
 
-
+df_stocks['Category'] = df_stocks['Category'].replace('گوشی موبایل ', 'گوشی موبایل')
 categories_ord = ['All categories'] + df_orders['Category'].unique().tolist()
 categories_stc = ['All categories'] + df_stocks['Category'].unique().tolist()
 
