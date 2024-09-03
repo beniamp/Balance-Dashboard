@@ -182,7 +182,7 @@ fig2 = px.bar(st_grouped, x='PriceRangeS', y='Availability',
              color='Availability', color_continuous_scale='viridis')
 
 
-st.write(st_grouped)
+st.write(price_range_distributionO)
 #fig2.show()
 #t.plotly_chart(fig2)
 
