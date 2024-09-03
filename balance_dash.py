@@ -192,7 +192,7 @@ st.plotly_chart(fig1)
 fig2.show()
 st.plotly_chart(fig2)
 
-st.write(test)
+st.dataframe(test)
 #t.plotly_chart(fig2)
 
 
