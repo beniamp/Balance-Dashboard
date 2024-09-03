@@ -203,7 +203,7 @@ st.plotly_chart(fig1)
 fig2.show()
 st.plotly_chart(fig2)
 
-
+fig3.show()
 st.plotly_chart(fig3)
 
 
