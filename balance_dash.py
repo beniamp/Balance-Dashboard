@@ -186,6 +186,8 @@ fig2 = px.bar(stc_grouped, x='PriceRangeS', y='Availability',
              labels={'PriceRange': 'Price Range', 'Availability': 'Total Availability'},
              color='Availability', color_continuous_scale='viridis')
 
+select_range = st.selectbox('Select Price Range', price_ranges)
+
 fig1.show()
 st.plotly_chart(fig1)
 
