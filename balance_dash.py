@@ -167,8 +167,8 @@ price_ranges = df_joined['PriceRangeS'].unique()
 stc = df_joined.groupby(['ProductS']).agg({'PriceRangeS': 'max', 'Availability': 'max'}).reset_index().sort_values(by='PriceRangeS', ascending=False)
 stc_grouped = stc.groupby('PriceRangeS', as_index=False)['Availability'].sum()
 test = df_joined.groupby(['ProductS']).agg({'PriceRangeS': 'max', 'Availability': 'max', 'Volume': 'sum'}).reset_index().sort_values(by='PriceRangeS', ascending=False)
-df_grouped = df_joined.groupby(['ProductS']).agg({'Availability': 'max', 'PriceRangeS': 'max'}).reset_index()
-df_grouped['ProductS'] = df_grouped['ProductS'].sort_values()
+df_grouped = df_joined.groupby(['ProductS']).agg({'Availability': 'max', 'PriceRangeS': 'max'}).reset_index()(by='PriceRangeS', ascending=False)
+
 # Create bar chart
 fig1 = px.bar(price_range_distributionO, x='PriceRangeS', y='Volume',
              title='Distribution of Price Ranges Over Ordered Volume',
